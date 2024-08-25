@@ -1,22 +1,25 @@
-
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
+import kitchen.views
+
+
 def home(request):
-    return HttpResponse("Hello, world! This is the home page.")
+    return render(request, 'home.html')
 
 def ingridients(request):
-    return HttpResponse("Hello, world! This is the ingridients page.")
+    return render(request, 'ingridients.html')
 
 def register(request):
-    return HttpResponse("Hello, world! This is the register page.")
+    return render(request, 'register.html')
 
 def login(request):
-    return HttpResponse("Hello, world! This is the login page.")
+    return render(request, 'login.html')
 
 def dishes(request):
-    return HttpResponse("Hello, world! This is the dishes page.")
+    return render(request, 'dishes.html')
 
 
 def cooks(request):
-    return HttpResponse("Hello, world! This is the cooks page.")
+    return render(request, 'cooks.html')
 
