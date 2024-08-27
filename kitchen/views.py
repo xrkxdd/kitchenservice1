@@ -7,8 +7,8 @@ import kitchen.views
 def home(request):
     return render(request, 'home.html')
 
-def ingridients(request):
-    return render(request, 'ingridients.html')
+def ingredients(request):
+    return render(request, 'ingredients.html')
 
 def register(request):
     return render(request, 'register.html')

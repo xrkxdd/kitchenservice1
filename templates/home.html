@@ -4,31 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Basic HTML Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            background-image: url('background.jpg'); /* Додаємо фон */
+            background-image: url('../static/css/background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            margin: 0;
+            background-attachment: fixed;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
         header {
-            background-color: rgba(0, 123, 255, 0.8); /* Полупрозрачний фон */
+            background-color: rgba(0, 123, 255, 0.8);
             color: white;
             padding: 10px 0;
             text-align: center;
         }
         main {
-            background: rgba(255, 255, 255, 0.9); /* Прозорий блок для покращення видимості тексту */
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 8px;
             margin-top: 20px;
+            flex: 1;
         }
         footer {
-            background-color: rgba(0, 123, 255, 0.8); /* Полупрозорий футер */
+            background-color: rgba(0, 123, 255, 0.8);
             color: white;
             text-align: center;
             padding: 10px 0;
@@ -36,17 +44,35 @@
             width: 100%;
             bottom: 0;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Home Page</h1>
+        <h1>Kitchen service</h1>
     </header>
 
     <main>
-        <h2>About This Page</h2>
-        <p>This is a simple HTML page created as a basic template. You can modify the content and style to suit your needs.</p>
+        <h2>Test main page</h2>
+        <p></p>
 
         <h2>Features</h2>
         <ul>
@@ -54,6 +80,30 @@
             <li>Responsive layout</li>
             <li>Simple styling</li>
         </ul>
+
+        <div class="button-container">
+            
+            <a href="{% url 'register' %}"
+            <button class="button">Register</button>
+            </a>
+            
+            <a href="{% url 'login' %}"
+            <button class="button">Login</button>
+            </a>
+            
+            <a href="{% url 'ingredients' %}"
+            <button class="button">Ingredients</button>
+            </a>
+            
+            <a href="{% url 'dishes' %}"
+            <button class="button">Dishes</button>
+            </a>
+            
+            <a href="{% url 'cooks' %}"
+            <button class="button">Cooks</button>
+            </a>
+            
+        </div>
     </main>
 
     <footer>
@@ -62,3 +112,4 @@
 
 </body>
 </html>
+
