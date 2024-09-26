@@ -1,77 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingredients</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            position: relative;
-        }
-        header h1 {
-            margin: 0;
-        }
-        header button {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            background-color: #ffffff;
-            color: #007BFF;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        header button:hover {
-            background-color: #f0f0f0;
-        }
-        main {
-            margin-top: 20px;
-        }
-        footer {
-            background-color: #007BFF;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <header>
-        <h1>Ingredients page</h1>
-        <button onclick="window.location.href='{% url 'home' %}'">Go to Home</button>
-    </header>
+{% block title %}Ingredients{% endblock %}
 
-    <main>
-        <h2>About This Page</h2>
-        <p>This is a simple HTML page created as a basic template. You can modify the content and style to suit your needs.</p>
+{% block content %}
+    <h2>Ingredients List</h2>
 
-        <h2>Features</h2>
-        <ul>
-            <li>Basic page structure</li>
-            <li>Responsive layout</li>
-            <li>Simple styling</li>
-        </ul>
-    </main>
+    <!-- Поисковая форма -->
+    <div class="search-container">
+        <form method="GET">
+            {{ search_form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 My Basic HTML Page</p>
-    </footer>
+    <!-- Список ингредиентов -->
+    <div class="grid-container">
+        {% for ingredient in ingredients %}
+            <div class="grid-item">
+                <h3>{{ ingredient.name }}</h3>
+                <p>Provider: {{ ingredient.provider }}</p>
+                <p>Unit: {{ ingredient.unit }}</p>
+                <p>Price: {{ ingredient.purchase_price }} USD</p>
+            </div>
+        {% empty %}
+            <p>No ingredients found.</p>
+        {% endfor %}
+    </div>
 
-</body>
-</html>
+    <h2>Add New Ingredient</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Ingredient</button>
+    </form>
+{% endblock %}
