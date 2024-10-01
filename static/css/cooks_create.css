@@ -1,0 +1,140 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #FCE3DF;
+    color: #333;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #FFE8E1;
+    border-radius: 15px;
+}
+
+header .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+header .logo span {
+    font-weight: normal;
+}
+
+nav a {
+    margin-left: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.intro-text h2 {
+    font-size: 32px;
+    line-height: 1.3;
+    color: #333;
+}
+
+.intro-text em {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.intro-image img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.about {
+    grid-column: span 2;
+    background-color: #FFE8E1;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.projects .project img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.projects .other-projects {
+    list-style: none;
+    padding: 10px;
+}
+
+.projects .other-projects li {
+    margin-bottom: 10px;
+}
+
+.projects .other-projects a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.contact {
+    grid-column: span 2;
+    background-color: #FDD9D0;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.contact h2 {
+    font-size: 24px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+footer a {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.logout-button {
+    background-color: #FF5A5F; /* Основной цвет */
+    color: white; /* Цвет текста */
+    padding: 12px 15px; /* Отступы */
+    border: none; /* Без рамки */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Плавный переход при наведении */
+}
+
+.logout-button:hover {
+    background-color: #D9534F;
+}
+
+.logout-button:active {
+    background-color: #C52C32;
+}
