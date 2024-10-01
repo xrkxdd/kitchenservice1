@@ -1,122 +1,88 @@
-/* General body and HTML styling */
-body,
-html {
+* {
     margin: 0;
     padding: 0;
-    height: 100%;
-    background-color: #F9F6F7;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center; /* Center the user card horizontally */
-    align-items: center; /* Center the user card vertically */
-    font-family: 'Arial', sans-serif;
-    color: #333;
+    box-sizing: border-box;
 }
 
-/* User card container */
-.user_card {
-    width: 350px;
-    background: rgba(255, 199, 195, 0.95); /* Light pinkish tone with slight transparency */
-    position: relative;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F9F6F7;
+    color: #333;
+    line-height: 1.6;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #9B5DE5;
+    margin-bottom: 20px;
+}
+
+.login-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    border-radius: 15px; /* Softer corners */
-    backdrop-filter: blur(5px); /* Apply blur effect for a modern look */
-    transition: transform 0.3s ease; /* Smooth hover effect */
 }
 
-/* Hover effect for the user card */
-.user_card:hover {
-    transform: translateY(-10px); /* Slightly elevate on hover */
+.form-group {
+    margin-bottom: 20px;
 }
 
-/* Form container */
-.form_container {
-    margin-top: 20px;
-}
-
-/* Form title styling */
-#form-title {
-    color: #fff;
-    font-size: 1.8rem;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-}
-
-/* Login button */
-.login_btn {
-    width: 100%;
-    background: #FF5A5F; /* Coral red for the button */
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 25px;
+label {
+    display: block;
+    margin-bottom: 5px;
     font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.login_btn:hover {
-    background: #D9534F; /* Darker coral red on hover */
-}
-
-/* Remove outline and shadow on focus */
-.login_btn:focus {
-    box-shadow: none;
-    outline: none;
-}
-
-/* Container for form elements */
-.login_container {
-    padding: 0 2rem;
-}
-
-/* Input group text (icon background) */
-.input-group-text {
-    background: #f7ba5b; /* Soft orange tone */
-    color: white;
-    border: none;
-    border-radius: 0.25rem 0 0 0.25rem;
-    padding: 12px;
-    font-size: 18px;
-}
-
-/* Input fields */
-.input_user,
-.input_pass {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 0 0.25rem 0.25rem 0;
-    font-size: 16px;
-    outline: none;
-    transition: box-shadow 0.2s ease;
-}
-
-/* Focus effect on input fields */
-.input_user:focus,
-.input_pass:focus {
-    box-shadow: 0 0 8px rgba(255, 90, 95, 0.5); /* Coral red focus effect */
-    border: 1px solid #FF5A5F;
-}
-
-/* Messages container */
-#messages {
-    background-color: #FFC7C3; /* Light pinkish coral for messages background */
     color: #333;
-    padding: 10px;
-    margin-top: 15px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #FF5A5F;
+    outline: none;
+}
+
+button {
+    background-color: #FF5A5F;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #D9534F;
+}
+
+.message {
+    margin-top: 15px;
     text-align: center;
-    font-size: 14px;
-    opacity: 0.9;
+    color: #D9534F;
+}
+
+footer {
+    background-color: #FFC7C3;
+    padding: 15px;
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+    margin-top: 40px;
 }

@@ -2,10 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
 body {
+    font-family: 'Arial', sans-serif;
     background-color: #F9F6F7;
     color: #333;
     line-height: 1.6;
@@ -40,6 +40,63 @@ nav a:hover {
     color: #D9534F;
 }
 
+/* Dashboard Section */
+.dashboard {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    text-decoration: none; /* Убираем подчеркивание для ссылки */
+    color: inherit; /* Устанавливаем цвет текста в наследуемый */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    font-size: 3rem;
+    color: #9B5DE5;
+    margin: 0;
+}
+
+.card p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.card span {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Separate Card */
+.card.ingredients {
+    grid-column: span 3;
+}
+
+.card-container .card.ingredients h3 {
+    color: #FF6B6B;
+}
+
+/* Auth Buttons */
 .auth-buttons {
     display: flex;
     gap: 10px;
@@ -75,55 +132,6 @@ nav a:hover {
     outline: none;
 }
 
-/* Main Content Grid */
-main {
-    padding: 20px;
-    text-align: center;
-}
-
-h2 {
-    font-size: 26px;
-    margin-bottom: 20px;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    padding: 0 20px;
-}
-
-.grid-item {
-    background-color: #FFEDEB;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.grid-item a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.grid-item h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.grid-item p {
-    font-size: 14px;
-    color: #666;
-}
-
-
 /* Footer */
 footer {
     background-color: #FFC7C3;
@@ -132,4 +140,47 @@ footer {
     color: #333;
     border-radius: 10px;
     margin-top: 40px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .search-container input {
+        width: 80%;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        margin-left: 10px;
+    }
+}
+
+.logout-button {
+    background-color: #FF5A5F; /* Основной цвет */
+    color: white; /* Цвет текста */
+    padding: 12px 15px; /* Отступы */
+    border: none; /* Без рамки */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Плавный переход при наведении */
+}
+
+.logout-button:hover {
+    background-color: #D9534F;
+}
+
+.logout-button:active {
+    background-color: #C52C32;
 }

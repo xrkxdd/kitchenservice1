@@ -33,8 +33,16 @@ class ChefCreationForm(UserCreationForm):
             "contract_size",
         )
 
-    def clean_years_of_experience(self) -> int:
-        return validate_years_of_experience(self.cleaned_data["years_of_experience"])
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Убираем help_text для паролей
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
+
+        # Проверяем и убираем поле "password-based authentication" (если оно существует)
+        if 'password_based_authentication' in self.fields:
+            del self.fields['password_based_authentication']
 
 
 class ChefExperienceUpdateForm(forms.ModelForm):

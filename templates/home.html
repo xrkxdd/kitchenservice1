@@ -4,288 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen Service</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../static/css/home.css">
-    <style>
-        /* Основные стили */
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: #F9F6F7;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-        }
-
-        /* Стиль для затемнения фона при открытии формы регистрации или логина */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-            backdrop-filter: blur(8px); /* Размытие фона */
-            opacity: 0; /* Начальное состояние (скрыто) */
-            display: none; /* Скрыто по умолчанию */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Помещает поверх других элементов */
-            transition: opacity 0.3s ease; /* Плавный переход для эффекта фейда */
-        }
-
-        .overlay.active {
-            display: flex; /* Показываем, когда активен */
-            opacity: 1; /* Делаем видимым */
-        }
-
-        /* Стили для формы */
-        .user_card {
-            width: 350px;
-            background: rgba(255, 199, 195, 0.95);
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
-            border: 1px solid #FF5A5F; /* Рамка вокруг формы */
-        }
-
-        .user_card:hover {
-            transform: translateY(-10px);
-        }
-
-        #form-title {
-            color: #FF5A5F;
-            font-size: 1.8rem;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 15px;
-        }
-
-        .login_btn {
-            width: 100%;
-            background: #FF5A5F !important;
-            color: white !important;
-            padding: 12px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .login_btn:hover {
-            background: #D9534F !important;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input_user,
-        .input_pass {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #FF5A5F; /* Рамка вокруг полей ввода */
-            border-radius: 8px; /* Сглаженные углы */
-            font-size: 16px;
-            outline: none;
-            transition: box-shadow 0.2s ease;
-        }
-
-        .input_user:focus,
-        .input_pass:focus {
-            box-shadow: 0 0 8px rgba(255, 90, 95, 0.5);
-            border: 1px solid #FF5A5F;
-        }
-
-        /* Кнопка переключения форм */
-        .toggle_btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-align: center;
-        }
-    </style>
 </head>
 
 <body>
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <h1>Kitchen <span>Service</span></h1>
+            <a href="{% url 'home' %}" class="create-button"> <!-- Replace 'home.html' with the actual path to your home page -->
+                <h1>Kitchen <span>Service</span></h1>
+            </a>
         </div>
+        <div class="user-info">
+        {% if user.is_authenticated %}
+            <p>User: {{ user.username }}</p>
+        {% endif %}
+    </div>
+
+        
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Ingredients</a>
-            <a href="#">Dishes</a>
-            <a href="#">Cooks</a>
-            <a href="#">Contact</a>
+            <a href="#">Ingredient list</a>
+            <a href="#">Dish list</a>
+            <a href="#">Cook list</a>
+            <a href="#">Dish types list</a>
         </nav>
+        
+        <!-- Authentication Buttons -->
         <div class="auth-buttons">
-            <a href="#" class="login" id="loginLink">Login</a>
-            <a href="#" class="signup" id="signupLink">Sign Up</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            {% endif %}
         </div>
     </header>
 
-    <!-- Search Bar -->
-    <section class="search-container">
-        <input type="text" placeholder="Search for ingredients, dishes, or cooks...">
-    </section>
+    <!-- Dashboard Section -->
+    <div class="dashboard">
+        <div class="card-container">
+            <a href="cooks" class="card cooks">
+                <h3>{{ cooks_count }}</h3>
+                <p>Cooks</p>
+                <span>Click here to see information about cooks</span>
+            </a>
 
-    <!-- Main Content -->
-    <main>
-        <h2>Featured Dishes</h2>
-        <div class="grid-container">
-            <div class="grid-item">
-                <a href="/cooks">
-                    <h3>Chefs</h3>
-                    <p>Explore our talented chefs.</p>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a href="/dishes">
-                    <h3>Dishes</h3>
-                    <p>Discover delicious dishes.</p>
-                </a>
-            </div>
-            <div class="grid-item">
-                <a href="/ingredients">
-                    <h3>Ingredients</h3>
-                    <p>Find out more about ingredients.</p>
-                </a>
-            </div>
+            <a href="dishes" class="card dishes">
+                <h3>0</h3>
+                <p>Dishes</p>
+                <span>Click here to see information about dishes</span>
+            </a>
+
+            <a href="dish-type-list" class="card dish-types">
+                <h3>0</h3>
+                <p>Dish Types</p>
+                <span>Click here to see information about dish types</span>
+            </a>
+
+            <a href="ingredients" class="card ingredients">
+                <h3>{{ ingredients }}</h3>
+                <p>Ingredients</p>
+                <span>Click here to see information about ingredients</span>
+            </a>
         </div>
-
-        <!-- Registration Form Section -->
-        <div class="overlay" id="overlay">
-            <div class="user_card" id="userCard">
-                <h2 id="form-title">Sign Up</h2>
-                <form id="registrationForm" class="form_container">
-                    <div class="input-group">
-                        <input type="text" id="username" name="username" class="input_user" placeholder="Username" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="email" name="email" class="input_user" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="password" name="password" class="input_pass" placeholder="Password" required>
-                    </div>
-                    <button type="submit" class="login_btn">Register</button>
-                    <button type="button" class="toggle_btn" id="switchToLogin">Already have an account? Login</button>
-                </form>
-                <div id="responseMessage"></div>
-            </div>
-        </div>
-
-        <!-- Login Form Section -->
-        <div class="overlay" id="loginOverlay">
-            <div class="user_card" id="loginCard">
-                <h2 id="form-title">Login</h2>
-                <form id="loginForm" class="form_container">
-                    <div class="input-group">
-                        <input type="text" id="loginUsername" name="loginUsername" class="input_user" placeholder="Username" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="password" id="loginPassword" name="loginPassword" class="input_pass" placeholder="Password" required>
-                    </div>
-                    <button type="submit" class="login_btn">Login</button>
-                    <button type="button" class="toggle_btn" id="switchToRegister">Don't have an account? Register</button>
-                </form>
-                <div id="loginResponseMessage"></div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        // Обработка клика по кнопке "Sign Up"
-        document.getElementById('signupLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Предотвращаем переход по ссылке
-            document.getElementById('overlay').classList.add('active');
-        });
-
-        // Обработка клика по кнопке "Login"
-        document.getElementById('loginLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Предотвращаем переход по ссылке
-            document.getElementById('loginOverlay').classList.add('active');
-        });
-
-        // Закрытие формы регистрации при клике вне формы
-        document.getElementById('overlay').addEventListener('click', function(event) {
-            if (event.target === this) { // Проверяем, что клик был именно на overlay
-                this.classList.remove('active');
-            }
-        });
-
-        // Закрытие формы логина при клике вне формы
-        document.getElementById('loginOverlay').addEventListener('click', function(event) {
-            if (event.target === this) { // Проверяем, что клик был именно на loginOverlay
-                this.classList.remove('active');
-            }
-        });
-
-        // Переключение на форму логина
-        document.getElementById('switchToLogin').addEventListener('click', function() {
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('loginOverlay').classList.add('active');
-        });
-
-        // Переключение на форму регистрации
-        document.getElementById('switchToRegister').addEventListener('click', function() {
-            document.getElementById('loginOverlay').classList.remove('active');
-            document.getElementById('overlay').classList.add('active');
-        });
-
-        // Обработка отправки формы регистрации
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращаем стандартное поведение формы
-
-            const formData = new FormData(this);
-
-            fetch('/register', { // Укажите URL для обработки регистрации
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('responseMessage').textContent = data.message;
-            })
-            .catch(error => {
-                document.getElementById('responseMessage').textContent = 'Error: ' + error.message;
-            });
-        });
-
-        // Обработка отправки формы логина
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращаем стандартное поведение формы
-
-            const formData = new FormData(this);
-
-            fetch('/login', { // Укажите URL для обработки логина
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loginResponseMessage').textContent = data.message;
-            })
-            .catch(error => {
-                document.getElementById('loginResponseMessage').textContent = 'Error: ' + error.message;
-            });
-        });
-    </script>
+    </div>
 </body>
+
 </html>

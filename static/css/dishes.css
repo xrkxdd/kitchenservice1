@@ -46,3 +46,22 @@
 .text-primary:hover {
     color: #025aa5;
 }
+
+.logout-button {
+    background-color: #FF5A5F; /* Основной цвет */
+    color: white; /* Цвет текста */
+    padding: 12px 15px; /* Отступы */
+    border: none; /* Без рамки */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Плавный переход при наведении */
+}
+
+.logout-button:hover {
+    background-color: #D9534F;
+}
+
+.logout-button:active {
+    background-color: #C52C32;
+}

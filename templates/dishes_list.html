@@ -1,9 +1,10 @@
+<!-- templates/search.html -->
 {% extends 'base.html' %}
 
-{% block title %}Dishes{% endblock %}
+{% block title %}Search Dishes{% endblock %}
 
 {% block content %}
-    <h2>Dishes List</h2>
+    <h2>Search Dishes</h2>
 
     <!-- Поисковая форма -->
     <div class="search-container">
@@ -13,7 +14,7 @@
         </form>
     </div>
 
-    <!-- Список блюд -->
+    <!-- Список найденных блюд -->
     <div class="grid-container">
         {% for recipe in recipes %}
             <div class="grid-item">
@@ -26,11 +27,4 @@
             <p>No dishes found.</p>
         {% endfor %}
     </div>
-
-    <h2>Add New Dish</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Dish</button>
-    </form>
 {% endblock %}

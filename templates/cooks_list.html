@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Cooks List{% endblock %}
+
+{% block content %}
+    <h2>Cooks List</h2>
+
+    <!-- Search Form -->
+    <div class="search-container">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Search by username">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Create Button -->
+    <div class="create-button">
+        <a href="{% url 'cooks_create' %}" class="btn btn-success">Create</a>
+    </div>
+
+    <!-- Cooks Table -->
+    <table class="cooks-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Years of experience</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chef in chefs %}
+            <tr class="{% if chef.username == user.username %}highlight-row{% endif %}">
+                <td>{{ chef.id }}</td>
+                <td>{{ chef.username }}{% if chef.username == user.username %} (Me){% endif %}</td>
+                <td>{{ chef.first_name }}</td>
+                <td>{{ chef.last_name }}</td>
+                <td>{{ chef.years_of_experience|default:"None" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No cooks found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
