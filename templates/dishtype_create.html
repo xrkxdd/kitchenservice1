@@ -3,10 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dish Types</title>
+    <title>Create Dish Type</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <h1>Dishензу с</h1>
-    <p>This page is currently under construction.</p>
+
+    <header>
+        <div class="logo">
+            <h1>Dish Management</h1>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Menu</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="dish-type-form-container">
+        <h1>Create Dish Type</h1>
+
+        <form method="POST" class="dish-type-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Dish Type Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+
+        <a href="{% url 'dishtype' %}" class="back-link">Back to Dish Types</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Dish Management System</p>
+    </footer>
+
 </body>
 </html>

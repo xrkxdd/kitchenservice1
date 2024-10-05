@@ -5,43 +5,51 @@
 {% block content %}
     <h2>Create Cook</h2>
 
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <form method="POST">
         {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
+
+        <div class="form-group">
             <label for="id_username">Username*</label>
             {{ form.username.errors }}
             {{ form.username }}
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="id_years_of_experience">Years of experience*</label>
             {{ form.years_of_experience.errors }}
             {{ form.years_of_experience }}
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="id_first_name">First name</label>
             {{ form.first_name.errors }}
             {{ form.first_name }}
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="id_last_name">Last name</label>
             {{ form.last_name.errors }}
             {{ form.last_name }}
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="id_contract_size">Contract size*</label>
             {{ form.contract_size.errors }}
             {{ form.contract_size }}
         </div>
 
-        <div>
-            <label for="id_password">Password*</label>
-            {{ form.password.errors }}
-            {{ form.password }}
+        <div class="form-group">
+            <label for="id_password1">Password*</label>
+            {{ form.password1.errors }}
+            {{ form.password1 }}
             <ul>
                 <li>Your password can't be too similar to your other personal information.</li>
                 <li>Your password must contain at least 8 characters.</li>
@@ -50,12 +58,12 @@
             </ul>
         </div>
 
-        <div>
-            <label for="id_password_confirmation">Password confirmation*</label>
-            {{ form.password_confirmation.errors }}
-            {{ form.password_confirmation }}
+        <div class="form-group">
+            <label for="id_password2">Password confirmation*</label>
+            {{ form.password2.errors }}
+            {{ form.password2 }}
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}

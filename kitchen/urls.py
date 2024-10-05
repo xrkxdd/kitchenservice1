@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LoginView
+from .views import dishes_create
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -9,8 +9,11 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),  # URL для выхода
     path('home/dishes/', views.dishes, name='dishes'),
+    path('dishes/create/', dishes_create, name='dishes_create'),
     path('home/cooks/', views.cooks, name='cooks'),
-    path('home/ingredients/', views.ingredients, name='ingredients'),
+    path('home/ingredients/', views.ingredients, name='ingredients'),  # Просмотр списка ингредиентов
+    path('home/ingredients_create/', views.ingredient_create, name='ingredient_create'),  # Создание нового ингредиента
     path('home/cooks_create/', views.cooks_create, name='cooks_create'),
+    path('home/dishtype/', views.dishtypes, name='dishtype'),
+    path('home/dishtype_create/', views.dishtypes_create, name='dishtype_create'),
 ]
-

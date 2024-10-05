@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Ingredients{% endblock %}
+{% block title %}Ingredients List{% endblock %}
 
 {% block content %}
     <h2>Ingredients List</h2>
@@ -27,10 +27,5 @@
         {% endfor %}
     </div>
 
-    <h2>Add New Ingredient</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Ingredient</button>
-    </form>
+    <a href="{% url 'ingredient_create' %}">Add New Ingredient</a>
 {% endblock %}

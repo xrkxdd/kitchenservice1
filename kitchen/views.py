@@ -4,9 +4,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 import kitchen.views
+from .models import dishType
+from .forms import dishTypeForm, dishTypeNameSearchForm
 
-
-from django.shortcuts import render
 from .models import Chef, Recipe, dishType, Ingredient
 
 def home(request):
@@ -42,21 +42,20 @@ from .forms import (
     IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
 )
 
-# Ингредиенты: просмотр и добавление
+# Просмотр и добавление ингредиентов
 def ingredients(request):
-    # Обработка формы для поиска
     search_form = IngredientNameSearchForm(request.GET)
     if search_form.is_valid() and search_form.cleaned_data['name']:
         ingredients = Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
     else:
         ingredients = Ingredient.objects.all()
 
-    # Обработка формы для добавления нового ингредиента
+    # Форма добавления нового ингредиента
     if request.method == 'POST':
         form = IngredientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('ingredients')  # После успешного добавления
+            return redirect('ingredients')  # После успешного добавления перенаправление на список
     else:
         form = IngredientForm()
 
@@ -66,7 +65,37 @@ def ingredients(request):
         'search_form': search_form
     })
 
-# Блюда: просмотр и добавление
+# Создание нового ингредиента
+def ingredient_create(request):
+    if request.method == 'POST':
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ingredients')  # После добавления возвращаемся на список ингредиентов
+    else:
+        form = IngredientForm()
+
+    return render(request, 'ingredients_create.html', {'form': form})
+
+
+from django.shortcuts import render, redirect
+from .forms import RecipeForm  # импорт формы рецептов
+from .models import Recipe  # импорт модели рецептов
+
+# Блюда: добавление нового рецепта
+def dishes_create(request):
+    # Обработка формы для добавления нового рецепта
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dishes')  # Перенаправляем на список рецептов после успешного сохранения
+    else:
+        form = RecipeForm()
+
+    return render(request, 'dishes_create.html', {'form': form})
+
+# Блюда: просмотр и поиск
 def dishes(request):
     # Обработка формы для поиска
     search_form = RecipeNameSearchForm(request.GET)
@@ -75,23 +104,18 @@ def dishes(request):
     else:
         recipes = Recipe.objects.all()
 
-    # Обработка формы для добавления нового рецепта
-    if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dishes')
-    else:
-        form = RecipeForm()
-
     return render(request, 'dishes_list.html', {
         'recipes': recipes,
-        'form': form,
         'search_form': search_form
     })
 
 
 # Просмотр списка поваров
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ChefCreationForm, ChefUsernameSearchForm
+from .models import Chef
+
 def cooks(request):
     # Обработка формы для поиска
     search_form = ChefUsernameSearchForm(request.GET)
@@ -111,7 +135,8 @@ def cooks_create(request):
         form = ChefCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('cooks_create')
+            messages.success(request, "Chef created successfully!")  # Уведомление об успехе
+            return redirect('cooks')  # Перенаправление на страницу со списком поваров
     else:
         form = ChefCreationForm()
 
@@ -120,3 +145,30 @@ def cooks_create(request):
     })
 
 
+# Просмотр типов блюд
+def dishtypes(request):
+    # Форма поиска
+    search_form = dishTypeNameSearchForm(request.GET)
+    if search_form.is_valid() and search_form.cleaned_data['name']:
+        dishtypes = dishType.objects.filter(name__icontains=search_form.cleaned_data['name'])
+    else:
+        dishtypes = dishType.objects.all()
+
+    return render(request, 'dishtype_list.html', {
+        'dishtypes': dishtypes,
+        'search_form': search_form
+    })
+
+# Создание нового типа блюда
+def dishtypes_create(request):
+    if request.method == 'POST':
+        form = dishTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dishtype')
+    else:
+        form = dishTypeForm()
+
+    return render(request, 'dishtype_create.html', {
+        'form': form
+    })
