@@ -5,7 +5,12 @@
 {% block content %}
     <h2>Cooks List</h2>
 
-    <!-- Search Form -->
+    <!-- Кнопка создания нового кухаря -->
+    <div class="create-button-container">
+        <a href="{% url 'cooks_create' %}" class="btn btn-success">Add New Cook</a>
+    </div>
+
+    <!-- Поисковая форма -->
     <div class="search-container">
         <form method="GET">
             <input type="text" name="search" placeholder="Search by username">
@@ -13,37 +18,17 @@
         </form>
     </div>
 
-    <!-- Create Button -->
-    <div class="create-button">
-        <a href="{% url 'cooks_create' %}" class="btn btn-success">Create</a>
+    <!-- Список найденных кухарей -->
+    <div class="grid-container">
+        {% for chef in chefs %}
+            <div class="grid-item {% if chef.username == user.username %}highlight-row{% endif %}">
+                <h3>{{ chef.username }}{% if chef.username == user.username %} (Me){% endif %}</h3>
+                <p>First name: {{ chef.first_name }}</p>
+                <p>Last name: {{ chef.last_name }}</p>
+                <p>Years of experience: {{ chef.years_of_experience|default:"None" }}</p>
+            </div>
+        {% empty %}
+            <p>No cooks found.</p>
+        {% endfor %}
     </div>
-
-    <!-- Cooks Table -->
-    <table class="cooks-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Years of experience</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for chef in chefs %}
-            <tr class="{% if chef.username == user.username %}highlight-row{% endif %}">
-                <td>{{ chef.id }}</td>
-                <td>{{ chef.username }}{% if chef.username == user.username %} (Me){% endif %}</td>
-                <td>{{ chef.first_name }}</td>
-                <td>{{ chef.last_name }}</td>
-                <td>{{ chef.years_of_experience|default:"None" }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">No cooks found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
 {% endblock %}

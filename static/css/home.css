@@ -184,3 +184,43 @@ footer {
 .logout-button:active {
     background-color: #C52C32;
 }
+
+/* Стили для логотипа */
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: #333; /* Основной цвет текста */
+}
+
+.logo h1 {
+    font-size: 2.5em; /* Размер основного текста логотипа */
+    font-weight: bold;
+    color: #333; /* Цвет основного текста */
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.logo h1 span {
+    color: #ff6347; /* Акцентный цвет для "Service" */
+    font-style: italic;
+    transition: color 0.3s ease;
+}
+
+.logo a:hover h1 {
+    color: #ff6347; /* Изменение цвета при наведении */
+}
+
+.logo a:hover h1 span {
+    color: #333; /* Изменение цвета акцента при наведении */
+}
+
+/* Эффект при наведении на логотип */
+.logo a:hover {
+    opacity: 0.8;
+}
+
