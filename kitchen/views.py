@@ -4,7 +4,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from .models import dishType, Ingredient, Recipe, Chef
 from .forms import (
     dishTypeForm, dishTypeNameSearchForm, IngredientForm, RecipeForm, ChefCreationForm,
@@ -160,10 +162,7 @@ def dishtypes_create(request):
         'form': form
     })
 
-from django.shortcuts import get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
 
 # Удаление повара
 @login_required

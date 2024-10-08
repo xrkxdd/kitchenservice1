@@ -78,7 +78,7 @@ nav a:hover {
 
 .card h3 {
     font-size: 3rem; /* Размер текста для цифры */
-    color: #000; /* Цвет текста для цифр - чёрный */
+    color: #FF5A5F; /* Цвет текста для цифр - чёрный */
     margin: 0;
 }
 
@@ -92,6 +92,7 @@ nav a:hover {
 .card span {
     color: #000;
     font-size: 14px;
+    font-style: italic;
 }
 
 /* Separate Card */
@@ -100,7 +101,7 @@ nav a:hover {
 }
 
 .card-container .card.ingredients h3 {
-    color: #000;
+    color: #FF5A5F6;
 }
 
 /* Auth Buttons */

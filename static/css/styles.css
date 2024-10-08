@@ -99,6 +99,7 @@ header {
     background-color: #FFC7C3;
     padding: 20px;
     display: flex;
+    border: 2px solid #FF5A5F;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
@@ -216,15 +217,6 @@ nav a:hover {
     outline: none;
 }
 
-/* Footer */
-footer {
-    background-color: #FFC7C3;
-    padding: 20px;
-    text-align: center;
-    color: #333;
-    border-radius: 10px;
-    margin-top: 40px;
-}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -581,14 +573,6 @@ nav a:hover {
     color: #D9534F;
 }
 
-footer {
-    background-color: #FFC7C3;
-    padding: 20px;
-    text-align: center;
-    color: #333;
-    border-radius: 10px;
-    margin-top: 40px;
-}
 
 @media (max-width: 768px) {
     .dish-type-form-container {
@@ -906,7 +890,7 @@ h2 {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333; /* Dark text */
+    color: #ff4d4d; /* Dark text */
 }
 
 .messages {
@@ -1094,3 +1078,55 @@ body {
         font-size: 14px;
     }
 }
+
+html, body {
+    height: 100%; /* Ensure the body takes up the full height of the viewport */
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* This makes the main content area take up all available space */
+}
+
+/* Keep footer at the bottom */
+footer {
+    background-color: #FFC7C3;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+    margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+    .no-cooks {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff4d4d; /* Яркий красный цвет для выделения */
+        background-color: #ffe6e6; /* Легкий розовый фон */
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+        margin-top: 20px;
+
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #FF5A5F;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px 20px; /* Уменьшено горизонтальное и вертикальное отступы */
+    background-color: #FFC7C3;
+
+    border-radius: px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px; /* Фиксированная ширина */
+    margin-left: auto; /* Центрируем по горизонтали */
+    margin-right: auto;
+}
+
+
+
+
