@@ -16,4 +16,8 @@ urlpatterns = [
     path('home/cooks_create/', views.cooks_create, name='cooks_create'),
     path('home/dishtype/', views.dishtypes, name='dishtype'),
     path('home/dishtype_create/', views.dishtypes_create, name='dishtype_create'),
+    path('home/cooks/delete/<int:pk>/', views.chef_delete, name='chef_delete'),
+    path('home/ingredients/delete/<int:pk>/', views.ingredient_delete, name='ingredient_delete'),
+    path('home/dishes/delete/<int:pk>/', views.recipe_delete, name='recipe_delete'),
+    path('home/dishtype/delete/<int:pk>/', views.dishtype_delete, name='dishtype_delete'),
 ]

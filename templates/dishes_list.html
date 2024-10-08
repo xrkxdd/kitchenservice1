@@ -1,7 +1,6 @@
-<!-- templates/search.html -->
 {% extends 'base.html' %}
 
-{% block title %}Search Dishes{% endblock %}
+{% block title %}Dishes List{% endblock %}
 
 {% block content %}
     <h2>Dishes</h2>
@@ -26,6 +25,12 @@
                 <p>{{ recipe.description }}</p>
                 <p>Price: {{ recipe.price }} USD</p>
                 <p>Kitchen Type: {{ recipe.kitchen_type.name }}</p>
+
+                <!-- Кнопка для удаления -->
+                <form action="{% url 'recipe_delete' recipe.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this recipe?');">Delete</button>
+                </form>
             </div>
         {% empty %}
             <p>No dishes found.</p>

@@ -10,7 +10,6 @@
         <a href="{% url 'cooks_create' %}" class="btn btn-success">Add New Cook</a>
     </div>
 
-
     <!-- Поисковая форма -->
     <div class="search-container">
         <form method="GET">
@@ -27,6 +26,12 @@
                 <p>First name: {{ chef.first_name }}</p>
                 <p>Last name: {{ chef.last_name }}</p>
                 <p>Years of experience: {{ chef.years_of_experience|default:"None" }}</p>
+
+                <!-- Кнопка для удаления -->
+                <form action="{% url 'chef_delete' chef.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this cook?');">Delete</button>
+                </form>
             </div>
         {% empty %}
             <p>No cooks found.</p>

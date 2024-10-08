@@ -159,3 +159,36 @@ def dishtypes_create(request):
     return render(request, 'dishtype_create.html', {
         'form': form
     })
+
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+# Удаление повара
+@login_required
+def chef_delete(request, pk):
+    chef = get_object_or_404(Chef, pk=pk)
+    chef.delete()
+    return redirect('cooks')
+
+# Удаление ингредиента
+@login_required
+def ingredient_delete(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
+    ingredient.delete()
+    return redirect('ingredients')
+
+# Удаление рецепта
+@login_required
+def recipe_delete(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    recipe.delete()
+    return redirect('dishes')
+
+# Удаление типа блюда
+@login_required
+def dishtype_delete(request, pk):
+    dishtype = get_object_or_404(dishType, pk=pk)
+    dishtype.delete()
+    return redirect('dishtype')
