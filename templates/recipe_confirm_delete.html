@@ -1,0 +1,6 @@
+<h2>Are you sure you want to delete the recipe "{{ object.name }}"?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'kitchen:recipe-list' %}">Cancel</a>
+</form>

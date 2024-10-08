@@ -9,7 +9,13 @@ body {
     background-color: #F9F6F7;
     color: #333;
     line-height: 1.6;
+    background-image: url('../img/bg.jpg');
+    background-size: cover; /* Изображение покроет весь экран */
+    background-position: center; /* Центрирование изображения */
+    background-repeat: no-repeat; /* Изображение не повторяется */
+    background-attachment: fixed; /* Фон остаётся фиксированным при прокрутке */
 }
+
 
 header {
     background-color: #FFC7C3;
@@ -71,19 +77,20 @@ nav a:hover {
 }
 
 .card h3 {
-    font-size: 3rem;
-    color: #9B5DE5;
+    font-size: 3rem; /* Размер текста для цифры */
+    color: #000; /* Цвет текста для цифр - чёрный */
     margin: 0;
 }
+
 
 .card p {
     margin-top: 10px;
     font-size: 18px;
-    color: #333;
+    color: #000;
 }
 
 .card span {
-    color: #666;
+    color: #000;
     font-size: 14px;
 }
 
@@ -93,7 +100,7 @@ nav a:hover {
 }
 
 .card-container .card.ingredients h3 {
-    color: #FF6B6B;
+    color: #000;
 }
 
 /* Auth Buttons */
@@ -222,5 +229,38 @@ footer {
 /* Эффект при наведении на логотип */
 .logo a:hover {
     opacity: 0.8;
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Расположим содержимое по краям */
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #333;
+    margin: 10px 0;
 }
 
+.card h3 {
+    font-size: 3rem; /* Размер текста для цифры и иконки */
+    color: #000; /* Цвет текста для цифр - чёрный */
+    margin: 0;
+}
+
+.card i {
+    font-size: 4.5rem; /* Увеличим размер иконки */
+    color: #555; /* Цвет иконки */
+}
+
+
+.card p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.card span {
+    font-size: 0.9rem;
+    color: #777;
+}

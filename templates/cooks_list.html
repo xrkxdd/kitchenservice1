@@ -10,11 +10,12 @@
         <a href="{% url 'cooks_create' %}" class="btn btn-success">Add New Cook</a>
     </div>
 
+
     <!-- Поисковая форма -->
     <div class="search-container">
         <form method="GET">
-            <input type="text" name="search" placeholder="Search by username">
-            <button type="submit" class="btn btn-primary">Search</button>
+            {{ search_form.as_p }}
+            <button type="submit">Search</button>
         </form>
     </div>
 

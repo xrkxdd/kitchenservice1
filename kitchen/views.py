@@ -3,11 +3,14 @@ from django.http import HttpResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-import kitchen.views
-from .models import dishType
-from .forms import dishTypeForm, dishTypeNameSearchForm
+from django.contrib import messages
 
-from .models import Chef, Recipe, dishType, Ingredient
+from .models import dishType, Ingredient, Recipe, Chef
+from .forms import (
+    dishTypeForm, dishTypeNameSearchForm, IngredientForm, RecipeForm, ChefCreationForm,
+    ChefExperienceUpdateForm, IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
+)
+
 
 def home(request):
     context = {
@@ -35,12 +38,6 @@ def login(request):
 
     return render(request, 'login.html', {'form': form})
 
-from django.shortcuts import render, redirect
-from .models import Ingredient, Recipe, Chef
-from .forms import (
-    IngredientForm, RecipeForm, ChefCreationForm, ChefExperienceUpdateForm,
-    IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
-)
 
 # Просмотр и добавление ингредиентов
 def ingredients(request):
@@ -78,10 +75,6 @@ def ingredient_create(request):
     return render(request, 'ingredients_create.html', {'form': form})
 
 
-from django.shortcuts import render, redirect
-from .forms import RecipeForm  # импорт формы рецептов
-from .models import Recipe  # импорт модели рецептов
-
 # Блюда: добавление нового рецепта
 def dishes_create(request):
     # Обработка формы для добавления нового рецепта
@@ -109,12 +102,6 @@ def dishes(request):
         'search_form': search_form
     })
 
-
-# Просмотр списка поваров
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import ChefCreationForm, ChefUsernameSearchForm
-from .models import Chef
 
 def cooks(request):
     # Обработка формы для поиска

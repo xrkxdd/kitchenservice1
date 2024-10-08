@@ -19,11 +19,7 @@
         {% endif %}
     </div>
     
-        <nav>
-            <a href="{% url 'dishes' %}">Dishes</a>
-            <a href="{% url 'ingredients' %}">Ingredients</a>
-            <a href="{% url 'cooks' %}">Cooks</a>
-        </nav>
+
         <div class="auth-buttons">
             {% if user.is_authenticated %}
                 <form action="{% url 'logout' %}" method="post" style="display:inline;">

@@ -3,67 +3,70 @@
 {% block title %}Create Cook{% endblock %}
 
 {% block content %}
-    <h2>Create Cook</h2>
+    <div class="form-container">
+        <h2>Create Cook</h2>
 
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    <form method="POST">
-        {% csrf_token %}
-
-        <div class="form-group">
-            <label for="id_username">Username*</label>
-            {{ form.username.errors }}
-            {{ form.username }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_years_of_experience">Years of experience*</label>
-            {{ form.years_of_experience.errors }}
-            {{ form.years_of_experience }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_first_name">First name</label>
-            {{ form.first_name.errors }}
-            {{ form.first_name }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_last_name">Last name</label>
-            {{ form.last_name.errors }}
-            {{ form.last_name }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_contract_size">Contract size*</label>
-            {{ form.contract_size.errors }}
-            {{ form.contract_size }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_password1">Password*</label>
-            {{ form.password1.errors }}
-            {{ form.password1 }}
-            <ul>
-                <li>Your password can't be too similar to your other personal information.</li>
-                <li>Your password must contain at least 8 characters.</li>
-                <li>Your password can't be a commonly used password.</li>
-                <li>Your password can't be entirely numeric.</li>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
             </ul>
-        </div>
+        {% endif %}
 
-        <div class="form-group">
-            <label for="id_password2">Password confirmation*</label>
-            {{ form.password2.errors }}
-            {{ form.password2 }}
-        </div>
+        <form method="POST" class="form-content">
+            {% csrf_token %}
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <div class="form-group">
+                <label for="id_username">Username*</label>
+                {{ form.username.errors }}
+                {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_years_of_experience">Years of experience*</label>
+                {{ form.years_of_experience.errors }}
+                {{ form.years_of_experience }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_first_name">First name</label>
+                {{ form.first_name.errors }}
+                {{ form.first_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_last_name">Last name</label>
+                {{ form.last_name.errors }}
+                {{ form.last_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_contract_size">Contract size*</label>
+                {{ form.contract_size.errors }}
+                {{ form.contract_size }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Password*</label>
+                {{ form.password1.errors }}
+                {{ form.password1 }}
+                <ul class="password-hints">
+                    <li>Your password can't be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can't be a commonly used password.</li>
+                    <li>Your password can't be entirely numeric.</li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Password confirmation*</label>
+                {{ form.password2.errors }}
+                {{ form.password2 }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <a href="{% url 'cooks' %}" class="btn btn-success">Back to Cooks List</a>
+    </div>
 {% endblock %}

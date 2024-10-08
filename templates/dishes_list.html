@@ -4,11 +4,10 @@
 {% block title %}Search Dishes{% endblock %}
 
 {% block content %}
-    <h2>Search Dishes</h2>
+    <h2>Dishes</h2>
 
-    <!-- Кнопка создания нового блюда -->
     <div class="create-button-container">
-        <a href="{% url 'dishes_create' %}">Add New Recipe</a>
+        <a href="{% url 'dishes_create' %}" class="btn btn-success">Add New Recipe</a>
     </div>
 
     <!-- Поисковая форма -->

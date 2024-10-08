@@ -27,5 +27,8 @@
         {% endfor %}
     </div>
 
-    <a href="{% url 'ingredient_create' %}">Add New Ingredient</a>
+
+    <div class="create-button-container">
+        <a href="{% url 'ingredient_create' %}" class="btn btn-success">Add New Ingredient</a>
+    </div>
 {% endblock %}

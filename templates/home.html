@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../static/css/home.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
@@ -22,14 +24,14 @@
         {% endif %}
     </div>
 
-        
+
         <nav>
             <a href="cooks_create">Create cook</a>
             <a href="dishtype_create">Create dish type</a>
             <a href="http://127.0.0.1:8000/dishes/create/">Create dishes</a>
             <a href="ingredient_create">Create ingredient</a>
         </nav>
-        
+
         <!-- Authentication Buttons -->
         <div class="auth-buttons">
             {% if user.is_authenticated %}
@@ -41,34 +43,36 @@
         </div>
     </header>
 
-    <!-- Dashboard Section -->
-    <div class="dashboard">
-        <div class="card-container">
-            <a href="cooks" class="card cooks">
-                <h3>{{ cooks_count }}</h3>
-                <p>Cooks</p>
-                <span>Click here to see information about cooks</span>
-            </a>
+<!-- Dashboard Section -->
+<div class="dashboard">
+    <div class="card-container">
+        <a href="cooks" class="card cooks">
+            <h3>{{ cooks_count }}</h3>
+            <i class='bx bxs-user-badge bx-lg' ></i>
+            <p>Cooks</p>
+            <span>Click here to see information about cooks</span>
+        </a>
 
-            <a href="dishes" class="card dishes">
-                <h3>{{ dishes_count }}</h3>
-                <p>Dishes</p>
-                <span>Click here to see information about dishes</span>
-            </a>
+        <a href="dishes" class="card dishes">
+            <h3>{{ dishes_count }}</h3>
+            <i class='bx bxs-dish bx-lg'></i>
+            <p>Dishes</p>
+            <span>Click here to see information about dishes</span>
+        </a>
 
-            <a href="dishtype" class="card dish-types">
-                <h3>{{ dish_types_count }}</h3>
-                <p>Dish Types</p>
-                <span>Click here to see information about dish types</span>
-            </a>
+        <a href="dishtype" class="card dish-types">
+            <h3>{{ dish_types_count }}</h3>
+            <i class='bx bxs-food-menu bx-lg'></i>
+            <p>Dish Types</p>
+            <span>Click here to see information about dish types</span>
+        </a>
 
-            <a href="ingredients" class="card ingredients">
+        <a href="ingredients" class="card ingredients">
                 <h3>{{ ingredients }}</h3>
-                <p>Ingredients</p>
-                <span>Click here to see information about ingredients</span>
-            </a>
-        </div>
+            <i class='bx bxs-baguette bx-lg'></i>
+            <p>Ingredients</p>
+            <span>Click here to see information about ingredients</span>
+        </a>
     </div>
-</body>
+</div>
 
-</html>
