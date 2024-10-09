@@ -7,19 +7,14 @@ from .models import dishType
 from kitchen.models import Recipe, Chef, Ingredient
 
 
-from django import forms
-from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
-from .models import Recipe, Ingredient, Chef
-
-
 class RecipeForm(forms.ModelForm):
+    # Field for selecting multiple chefs using checkboxes
     chefs = forms.ModelMultipleChoiceField(
         queryset=Chef.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
 
+    # Field for selecting multiple ingredients using checkboxes (required)
     ingredients = forms.ModelMultipleChoiceField(
         queryset=Ingredient.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -28,14 +23,14 @@ class RecipeForm(forms.ModelForm):
 
     class Meta:
         model = Recipe
-        fields = "__all__"
+        fields = "__all__"  # Use all fields from the Recipe model
 
+    # Custom validation for ingredients field
     def clean_ingredients(self):
         ingredients = self.cleaned_data.get('ingredients')
         if not ingredients:
             raise ValidationError("At least one ingredient is required.")
         return ingredients
-
 
 
 class ChefCreationForm(UserCreationForm):
@@ -46,7 +41,7 @@ class ChefCreationForm(UserCreationForm):
             "first_name",
             "last_name",
             "contract_size",
-        )
+        )  # Add custom fields to the standard user creation form
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,7 +50,7 @@ class ChefCreationForm(UserCreationForm):
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
-        # Remove field if it exists
+        # Remove password-based authentication field if it exists
         if 'password_based_authentication' in self.fields:
             del self.fields['password_based_authentication']
 
@@ -65,6 +60,7 @@ class ChefExperienceUpdateForm(forms.ModelForm):
         model = Chef
         fields = ["years_of_experience", "contract_size"]
 
+    # Custom validation for years of experience field
     def clean_years_of_experience(self) -> int:
         return validate_years_of_experience(self.cleaned_data["years_of_experience"])
 
@@ -75,6 +71,7 @@ class ChefExperienceUpdateForm(forms.ModelForm):
     #     return contract_size
 
 
+# Validation function for years of experience
 def validate_years_of_experience(years_of_experience: str) -> int:
     try:
         years_of_experience = int(years_of_experience)
@@ -87,6 +84,7 @@ def validate_years_of_experience(years_of_experience: str) -> int:
 
 
 class ChefUsernameSearchForm(forms.Form):
+    # Search form for filtering chefs by username
     username = forms.CharField(
         max_length=150,
         required=False,
@@ -99,8 +97,8 @@ class ChefUsernameSearchForm(forms.Form):
     )
 
 
-
 class RecipeNameSearchForm(forms.Form):
+    # Search form for filtering recipes by name
     name = forms.CharField(
         max_length=255,
         required=False,
@@ -110,6 +108,7 @@ class RecipeNameSearchForm(forms.Form):
 
 
 class dishTypeNameSearchForm(forms.Form):
+    # Search form for filtering dish types by name
     name = forms.CharField(
         max_length=255,
         required=False,
@@ -119,6 +118,7 @@ class dishTypeNameSearchForm(forms.Form):
 
 
 class IngredientForm(forms.ModelForm):
+    # Field for selecting multiple recipes using checkboxes
     recipes = forms.ModelMultipleChoiceField(
         queryset=Recipe.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -127,10 +127,11 @@ class IngredientForm(forms.ModelForm):
 
     class Meta:
         model = Ingredient
-        fields = "__all__"
+        fields = "__all__"  # Use all fields from the Ingredient model
 
 
 class IngredientNameSearchForm(forms.Form):
+    # Search form for filtering ingredients by name
     name = forms.CharField(
         max_length=255,
         required=False,
@@ -138,7 +139,8 @@ class IngredientNameSearchForm(forms.Form):
         widget=forms.TextInput(attrs={"placeholder": "Search by name"}),
     )
 
+
 class dishTypeForm(forms.ModelForm):
     class Meta:
         model = dishType
-        fields = ['name']
+        fields = ['name']  # Only include the 'name' field of the dishType model
