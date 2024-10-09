@@ -13,48 +13,47 @@ from .forms import (
     ChefExperienceUpdateForm, IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
 )
 
-
+# Home page view with statistics
 def home(request):
     context = {
-        'cooks_count': Chef.objects.count(),
-        'dishes_count': Recipe.objects.count(),
-        'dish_types_count': dishType.objects.count(),
-        'ingredients': Ingredient.objects.count(),
+        'cooks_count': Chef.objects.count(),  # Total number of chefs
+        'dishes_count': Recipe.objects.count(),  # Total number of dishes
+        'dish_types_count': dishType.objects.count(),  # Total number of dish types
+        'ingredients': Ingredient.objects.count(),  # Total number of ingredients
     }
     return render(request, 'home.html', context)
 
-
+# Login page
 def login(request):
-    # Если пользователь уже аутентифицирован, перенаправляем на главную страницу
+    # If the user is already authenticated, redirect to the home page
     if request.user.is_authenticated:
-        return redirect('home')  # Перенаправление на главную страницу
+        return redirect('home')  # Redirect to home page
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
-            return redirect('home')  # Перенаправление на главную страницу после логина
+            return redirect('home')  # Redirect to home page after successful login
     else:
         form = AuthenticationForm()
 
     return render(request, 'login.html', {'form': form})
 
-
-# Просмотр и добавление ингредиентов
+# View and add ingredients
 def ingredients(request):
-    search_form = IngredientNameSearchForm(request.GET)
+    search_form = IngredientNameSearchForm(request.GET)  # Search form for filtering ingredients
     if search_form.is_valid() and search_form.cleaned_data['name']:
         ingredients = Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
     else:
         ingredients = Ingredient.objects.all()
 
-    # Форма добавления нового ингредиента
+    # Form for adding a new ingredient
     if request.method == 'POST':
         form = IngredientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('ingredients')  # После успешного добавления перенаправление на список
+            return redirect('ingredients')  # Redirect to ingredient list after successful addition
     else:
         form = IngredientForm()
 
@@ -64,36 +63,34 @@ def ingredients(request):
         'search_form': search_form
     })
 
-# Создание нового ингредиента
+# Create a new ingredient
 def ingredient_create(request):
     if request.method == 'POST':
         form = IngredientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('ingredients')  # После добавления возвращаемся на список ингредиентов
+            return redirect('ingredients')  # Redirect to ingredient list after addition
     else:
         form = IngredientForm()
 
     return render(request, 'ingredients_create.html', {'form': form})
 
-
-# Блюда: добавление нового рецепта
+# Create a new dish/recipe
 def dishes_create(request):
-    # Обработка формы для добавления нового рецепта
+    # Process the form for adding a new recipe
     if request.method == 'POST':
         form = RecipeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('dishes')  # Перенаправляем на список рецептов после успешного сохранения
+            return redirect('dishes')  # Redirect to the dish list after saving
     else:
         form = RecipeForm()
 
     return render(request, 'dishes_create.html', {'form': form})
 
-# Блюда: просмотр и поиск
+# View and search dishes
 def dishes(request):
-    # Обработка формы для поиска
-    search_form = RecipeNameSearchForm(request.GET)
+    search_form = RecipeNameSearchForm(request.GET)  # Search form for filtering recipes
     if search_form.is_valid() and search_form.cleaned_data['name']:
         recipes = Recipe.objects.filter(name__icontains=search_form.cleaned_data['name'])
     else:
@@ -104,10 +101,9 @@ def dishes(request):
         'search_form': search_form
     })
 
-
+# View and search cooks/chefs
 def cooks(request):
-    # Обработка формы для поиска
-    search_form = ChefUsernameSearchForm(request.GET)
+    search_form = ChefUsernameSearchForm(request.GET)  # Search form for filtering chefs
     if search_form.is_valid() and search_form.cleaned_data['username']:
         chefs = Chef.objects.filter(username__icontains=search_form.cleaned_data['username'])
     else:
@@ -118,14 +114,14 @@ def cooks(request):
         'search_form': search_form
     })
 
-# Создание нового повара
+# Create a new cook/chef
 def cooks_create(request):
     if request.method == 'POST':
         form = ChefCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Chef created successfully!")  # Уведомление об успехе
-            return redirect('cooks')  # Перенаправление на страницу со списком поваров
+            messages.success(request, "Chef created successfully!")  # Success message
+            return redirect('cooks')  # Redirect to the cook list after saving
     else:
         form = ChefCreationForm()
 
@@ -133,11 +129,9 @@ def cooks_create(request):
         'form': form
     })
 
-
-# Просмотр типов блюд
+# View dish types
 def dishtypes(request):
-    # Форма поиска
-    search_form = dishTypeNameSearchForm(request.GET)
+    search_form = dishTypeNameSearchForm(request.GET)  # Search form for filtering dish types
     if search_form.is_valid() and search_form.cleaned_data['name']:
         dishtypes = dishType.objects.filter(name__icontains=search_form.cleaned_data['name'])
     else:
@@ -148,7 +142,7 @@ def dishtypes(request):
         'search_form': search_form
     })
 
-# Создание нового типа блюда
+# Create a new dish type
 def dishtypes_create(request):
     if request.method == 'POST':
         form = dishTypeForm(request.POST)
@@ -162,32 +156,30 @@ def dishtypes_create(request):
         'form': form
     })
 
-
-
-# Удаление повара
+# Delete a chef
 @login_required
 def chef_delete(request, pk):
-    chef = get_object_or_404(Chef, pk=pk)
+    chef = get_object_or_404(Chef, pk=pk)  # Get the specific chef by ID
     chef.delete()
     return redirect('cooks')
 
-# Удаление ингредиента
+# Delete an ingredient
 @login_required
 def ingredient_delete(request, pk):
-    ingredient = get_object_or_404(Ingredient, pk=pk)
+    ingredient = get_object_or_404(Ingredient, pk=pk)  # Get the specific ingredient by ID
     ingredient.delete()
     return redirect('ingredients')
 
-# Удаление рецепта
+# Delete a recipe
 @login_required
 def recipe_delete(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk)
+    recipe = get_object_or_404(Recipe, pk=pk)  # Get the specific recipe by ID
     recipe.delete()
     return redirect('dishes')
 
-# Удаление типа блюда
+# Delete a dish type
 @login_required
 def dishtype_delete(request, pk):
-    dishtype = get_object_or_404(dishType, pk=pk)
+    dishtype = get_object_or_404(dishType, pk=pk)  # Get the specific dish type by ID
     dishtype.delete()
     return redirect('dishtype')
