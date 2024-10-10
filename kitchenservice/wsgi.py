@@ -1,5 +1,5 @@
 """
-WSGI config for kitchenservece1 project.
+WSGI config for kitchenservice project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kitchenservece1.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'kitchenservice.settings')
 
 application = get_wsgi_application()
