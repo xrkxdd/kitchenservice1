@@ -133,6 +133,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'kitchen:login'
+LOGIN_REDIRECT_URL = 'kitchen:home'
+LOGOUT_REDIRECT_URL = 'kitchen:login'

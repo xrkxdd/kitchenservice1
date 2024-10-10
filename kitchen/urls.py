@@ -6,6 +6,8 @@ from .views import (
     ChefDeleteView, IngredientDeleteView, RecipeDeleteView, DishTypeDeleteView
 )
 
+app_name = 'kitchen'
+
 urlpatterns = [
     path('', CustomLoginView.as_view(), name='login'),  # Login page
     path('home/', HomeView.as_view(), name='home'),  # Home page

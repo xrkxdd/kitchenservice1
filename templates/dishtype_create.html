@@ -10,7 +10,7 @@
 
     <header>
                 <div class="logo">
-            <a href="{% url 'home' %}">
+            <a href="{% url 'kitchen:home' %}">
                 <h1>Kitchen <span>Service</span></h1>
             </a>
         </div>
@@ -29,7 +29,7 @@
             <button type="submit">Save</button>
         </form>
 
-        <a href="{% url 'dishtype' %}" class="back-link">Back to Dish Types</a>
+        <a href="{% url 'kitchen:dishtype' %}" class="back-link">Back to Dish Types</a>
     </div>
 
     <footer>

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from .models import dishType
+from .models import DishType
 
 from kitchen.models import Recipe, Chef, Ingredient
 
@@ -20,6 +20,13 @@ class RecipeForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=True,
     )
+    def clean_ingredients(self):
+        ingredients = self.cleaned_data.get('ingredients')
+        if not ingredients:
+            raise ValidationError("At least one ingredient is required.")
+        return ingredients
+
+
 
     class Meta:
         model = Recipe
@@ -42,6 +49,13 @@ class ChefCreationForm(UserCreationForm):
             "last_name",
             "contract_size",
         )  # Add custom fields to the standard user creation form
+
+    def clean_years_of_experience(self):
+        years_of_experience = self.cleaned_data.get('years_of_experience')
+        if years_of_experience is None or years_of_experience <= 0:
+            raise ValidationError("Years of experience should be greater than zero.")
+        return years_of_experience
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -107,7 +121,7 @@ class RecipeNameSearchForm(forms.Form):
     )
 
 
-class dishTypeNameSearchForm(forms.Form):
+class DishTypeNameSearchForm(forms.Form):
     # Search form for filtering dish types by name
     name = forms.CharField(
         max_length=255,
@@ -140,7 +154,7 @@ class IngredientNameSearchForm(forms.Form):
     )
 
 
-class dishTypeForm(forms.ModelForm):
+class DishTypeForm(forms.ModelForm):
     class Meta:
-        model = dishType
+        model = DishType
         fields = ['name']  # Only include the 'name' field of the dishType model

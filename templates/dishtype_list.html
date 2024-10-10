@@ -20,7 +20,7 @@
                 <h3>{{ dishtype.name }}</h3>
 
                 <!-- Button to delete -->
-                <form action="{% url 'dishtype_delete' dishtype.pk %}" method="POST" style="display:inline;">
+                <form action="{% url 'kitchen:dishtype_delete' dishtype.pk %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dish type?');">Delete</button>
                 </form>
@@ -32,6 +32,6 @@
 
     <!-- Link to create a new dish type page -->
     <div class="create-button">
-        <a href="{% url 'dishtype_create' %}" class="btn">Create New Dish Type</a>
+        <a href="{% url 'kitchen:dishtype_create' %}" class="btn">Create New Dish Type</a>
     </div>
 {% endblock %}

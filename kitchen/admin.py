@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import RecipeForm, IngredientForm
-from .models import dishType, Chef, Recipe, Ingredient
+from .models import DishType, Chef, Recipe, Ingredient
 
 
 @admin.register(Chef)
@@ -48,4 +48,4 @@ class IngredientAdmin(admin.ModelAdmin):
     list_filter = ("recipes",)
 
 
-admin.site.register(dishType)
+admin.site.register(DishType)

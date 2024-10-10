@@ -14,7 +14,7 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <a href="{% url 'home' %}" class="create-button"> <!-- Replace 'home.html' with the actual path to your home page -->
+            <a href="{% url 'kitchen:home' %}" class="create-button"> <!-- Replace 'home.html' with the actual path to your home page -->
                 <h1>Kitchen <span>Service</span></h1>
             </a>
         </div>
@@ -35,7 +35,7 @@
         <!-- Authentication Buttons -->
         <div class="auth-buttons">
             {% if user.is_authenticated %}
-                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                <form action="{% url 'kitchen:logout' %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">Logout</button>
                 </form>
