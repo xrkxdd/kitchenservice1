@@ -1,24 +1,34 @@
 from django.urls import path
-from . import views
-from .views import dishes_create
 from django.contrib.auth.views import LogoutView
+from .views import (
+    HomeView, CustomLoginView, IngredientListView, IngredientCreateView, RecipeCreateView,
+    RecipeListView, ChefListView, ChefCreateView, DishTypeListView, DishTypeCreateView,
+    ChefDeleteView, IngredientDeleteView, RecipeDeleteView, DishTypeDeleteView
+)
 
 urlpatterns = [
-    path('', views.login, name='login'),  # Login page
-    path('home/', views.home, name='home'),  # Home page
-    path('login/', views.login, name='login'),  # Login page (alternative URL)
+    path('', CustomLoginView.as_view(), name='login'),  # Login page
+    path('home/', HomeView.as_view(), name='home'),  # Home page
+    path('login/', CustomLoginView.as_view(), name='login'),  # Login page (alternative URL)
     path('logout/', LogoutView.as_view(), name='logout'),  # URL for logging out
-    path('home/dishes/', views.dishes, name='dishes'),  # View list of dishes
-    path('dishes/create/', dishes_create, name='dishes_create'),  # Create a new dish
-    path('home/cooks/', views.cooks, name='cooks'),  # View list of cooks
-    path('home/ingredients/', views.ingredients, name='ingredients'),  # View list of ingredients
-    path('home/ingredients_create/', views.ingredient_create, name='ingredient_create'),  # Create a new ingredient
-    path('home/cooks_create/', views.cooks_create, name='cooks_create'),  # Create a new cook
-    path('home/dishtype/', views.dishtypes, name='dishtype'),  # View list of dish types
-    path('home/dishtype_create/', views.dishtypes_create, name='dishtype_create'),  # Create a new dish type
-    path('home/cooks/delete/<int:pk>/', views.chef_delete, name='chef_delete'),  # Delete a specific cook by ID
-    path('home/ingredients/delete/<int:pk>/', views.ingredient_delete, name='ingredient_delete'),  # Delete a specific ingredient by ID
-    path('home/dishes/delete/<int:pk>/', views.recipe_delete, name='recipe_delete'),  # Delete a specific dish (recipe) by ID
-    path('home/dishtype/delete/<int:pk>/', views.dishtype_delete, name='dishtype_delete'),  # Delete a specific dish type by ID
-]
 
+    # Dishes (recipes) related URLs
+    path('home/dishes/', RecipeListView.as_view(), name='dishes'),  # View list of dishes
+    path('dishes/create/', RecipeCreateView.as_view(), name='dishes_create'),  # Create a new dish
+    path('home/dishes/delete/<int:pk>/', RecipeDeleteView.as_view(), name='recipe_delete'),
+
+    # Cooks (chefs) related URLs
+    path('home/cooks/', ChefListView.as_view(), name='cooks'),  # View list of cooks
+    path('home/cooks_create/', ChefCreateView.as_view(), name='cooks_create'),  # Create a new cook
+    path('home/cooks/delete/<int:pk>/', ChefDeleteView.as_view(), name='chef_delete'),  # Delete a specific cook by ID
+
+    # Ingredients related URLs
+    path('home/ingredients/', IngredientListView.as_view(), name='ingredients'),  # View list of ingredients
+    path('home/ingredients_create/', IngredientCreateView.as_view(), name='ingredient_create'),  # Create a new ingredient
+    path('home/ingredients/delete/<int:pk>/', IngredientDeleteView.as_view(), name='ingredient_delete'),  # Delete a specific ingredient by ID
+
+    # Dish types related URLs
+    path('home/dishtype/', DishTypeListView.as_view(), name='dishtype'),  # View list of dish types
+    path('home/dishtype_create/', DishTypeCreateView.as_view(), name='dishtype_create'),  # Create a new dish type
+    path('home/dishtype/delete/<int:pk>/', DishTypeDeleteView.as_view(), name='dishtype_delete'),  # Delete a specific dish type by ID
+]

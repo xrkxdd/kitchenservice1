@@ -1,185 +1,187 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView, ListView, CreateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from .models import dishType, Ingredient, Recipe, Chef
 from .forms import (
     dishTypeForm, dishTypeNameSearchForm, IngredientForm, RecipeForm, ChefCreationForm,
-    ChefExperienceUpdateForm, IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
+    IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
 )
 
 # Home page view with statistics
-def home(request):
-    context = {
-        'cooks_count': Chef.objects.count(),  # Total number of chefs
-        'dishes_count': Recipe.objects.count(),  # Total number of dishes
-        'dish_types_count': dishType.objects.count(),  # Total number of dish types
-        'ingredients': Ingredient.objects.count(),  # Total number of ingredients
-    }
-    return render(request, 'home.html', context)
+class HomeView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cooks_count'] = Chef.objects.count()
+        context['dishes_count'] = Recipe.objects.count()
+        context['dish_types_count'] = dishType.objects.count()
+        context['ingredients'] = Ingredient.objects.count()
+        return context
 
 # Login page
-def login(request):
-    # If the user is already authenticated, redirect to the home page
-    if request.user.is_authenticated:
-        return redirect('home')  # Redirect to home page
-
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
-            return redirect('home')  # Redirect to home page after successful login
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'login.html', {'form': form})
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+    redirect_authenticated_user = True
 
 # View and add ingredients
-def ingredients(request):
-    search_form = IngredientNameSearchForm(request.GET)  # Search form for filtering ingredients
-    if search_form.is_valid() and search_form.cleaned_data['name']:
-        ingredients = Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
-    else:
-        ingredients = Ingredient.objects.all()
+class IngredientListView(CreateView, ListView):
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = 'ingredients.html'
+    context_object_name = 'ingredients'
 
-    # Form for adding a new ingredient
-    if request.method == 'POST':
-        form = IngredientForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('ingredients')  # Redirect to ingredient list after successful addition
-    else:
-        form = IngredientForm()
+    def get_queryset(self):
+        search_form = IngredientNameSearchForm(self.request.GET)
+        if search_form.is_valid() and search_form.cleaned_data['name']:
+            return Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
+        return Ingredient.objects.all()
 
-    return render(request, 'ingredients.html', {
-        'ingredients': ingredients,
-        'form': form,
-        'search_form': search_form
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = IngredientNameSearchForm(self.request.GET)
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Ingredient added successfully!")
+        return super().form_valid(form)
+
+    # Define where to redirect after a successful form submission
+    success_url = reverse_lazy('ingredients')
 
 # Create a new ingredient
-def ingredient_create(request):
-    if request.method == 'POST':
-        form = IngredientForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('ingredients')  # Redirect to ingredient list after addition
-    else:
-        form = IngredientForm()
+class IngredientCreateView(CreateView):
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = 'ingredients_create.html'
 
-    return render(request, 'ingredients_create.html', {'form': form})
+    def form_valid(self, form):
+        messages.success(self.request, "Ingredient created successfully!")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('ingredients')
 
 # Create a new dish/recipe
-def dishes_create(request):
-    # Process the form for adding a new recipe
-    if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dishes')  # Redirect to the dish list after saving
-    else:
-        form = RecipeForm()
+class RecipeCreateView(CreateView):
+    model = Recipe
+    form_class = RecipeForm
+    template_name = 'dishes_create.html'
 
-    return render(request, 'dishes_create.html', {'form': form})
+    def form_valid(self, form):
+        messages.success(self.request, "Recipe created successfully!")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('dishes')
 
 # View and search dishes
-def dishes(request):
-    search_form = RecipeNameSearchForm(request.GET)  # Search form for filtering recipes
-    if search_form.is_valid() and search_form.cleaned_data['name']:
-        recipes = Recipe.objects.filter(name__icontains=search_form.cleaned_data['name'])
-    else:
-        recipes = Recipe.objects.all()
+class RecipeListView(ListView):
+    model = Recipe
+    template_name = 'dishes_list.html'
+    context_object_name = 'recipes'
 
-    return render(request, 'dishes_list.html', {
-        'recipes': recipes,
-        'search_form': search_form
-    })
+    def get_queryset(self):
+        search_form = RecipeNameSearchForm(self.request.GET)
+        if search_form.is_valid() and search_form.cleaned_data['name']:
+            return Recipe.objects.filter(name__icontains=search_form.cleaned_data['name'])
+        return Recipe.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = RecipeNameSearchForm(self.request.GET)
+        return context
 
 # View and search cooks/chefs
-def cooks(request):
-    search_form = ChefUsernameSearchForm(request.GET)  # Search form for filtering chefs
-    if search_form.is_valid() and search_form.cleaned_data['username']:
-        chefs = Chef.objects.filter(username__icontains=search_form.cleaned_data['username'])
-    else:
-        chefs = Chef.objects.all()
+class ChefListView(ListView):
+    model = Chef
+    template_name = 'cooks_list.html'
+    context_object_name = 'chefs'
 
-    return render(request, 'cooks_list.html', {
-        'chefs': chefs,
-        'search_form': search_form
-    })
+    def get_queryset(self):
+        search_form = ChefUsernameSearchForm(self.request.GET)
+        if search_form.is_valid() and search_form.cleaned_data['username']:
+            return Chef.objects.filter(username__icontains=search_form.cleaned_data['username'])
+        return Chef.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = ChefUsernameSearchForm(self.request.GET)
+        return context
 
 # Create a new cook/chef
-def cooks_create(request):
-    if request.method == 'POST':
-        form = ChefCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Chef created successfully!")  # Success message
-            return redirect('cooks')  # Redirect to the cook list after saving
-    else:
-        form = ChefCreationForm()
+class ChefCreateView(CreateView):
+    model = Chef
+    form_class = ChefCreationForm
+    template_name = 'cooks_create.html'
 
-    return render(request, 'cooks_create.html', {
-        'form': form
-    })
+    def form_valid(self, form):
+        messages.success(self.request, "Chef created successfully!")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('cooks')
 
 # View dish types
-def dishtypes(request):
-    search_form = dishTypeNameSearchForm(request.GET)  # Search form for filtering dish types
-    if search_form.is_valid() and search_form.cleaned_data['name']:
-        dishtypes = dishType.objects.filter(name__icontains=search_form.cleaned_data['name'])
-    else:
-        dishtypes = dishType.objects.all()
+class DishTypeListView(ListView):
+    model = dishType
+    template_name = 'dishtype_list.html'
+    context_object_name = 'dishtypes'
 
-    return render(request, 'dishtype_list.html', {
-        'dishtypes': dishtypes,
-        'search_form': search_form
-    })
+    def get_queryset(self):
+        search_form = dishTypeNameSearchForm(self.request.GET)
+        if search_form.is_valid() and search_form.cleaned_data['name']:
+            return dishType.objects.filter(name__icontains=search_form.cleaned_data['name'])
+        return dishType.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = dishTypeNameSearchForm(self.request.GET)
+        return context
 
 # Create a new dish type
-def dishtypes_create(request):
-    if request.method == 'POST':
-        form = dishTypeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dishtype')
-    else:
-        form = dishTypeForm()
+class DishTypeCreateView(CreateView):
+    model = dishType
+    form_class = dishTypeForm
+    template_name = 'dishtype_create.html'
 
-    return render(request, 'dishtype_create.html', {
-        'form': form
-    })
+    def form_valid(self, form):
+        messages.success(self.request, "Dish type created successfully!")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('dishtype')
 
 # Delete a chef
-@login_required
-def chef_delete(request, pk):
-    chef = get_object_or_404(Chef, pk=pk)  # Get the specific chef by ID
-    chef.delete()
-    return redirect('cooks')
+class ChefDeleteView(LoginRequiredMixin, DeleteView):
+    model = Chef
+    success_url = reverse_lazy('cooks')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Chef deleted successfully!")
+        return super().delete(request, *args, **kwargs)
 
 # Delete an ingredient
-@login_required
-def ingredient_delete(request, pk):
-    ingredient = get_object_or_404(Ingredient, pk=pk)  # Get the specific ingredient by ID
-    ingredient.delete()
-    return redirect('ingredients')
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
+    model = Ingredient
+    success_url = reverse_lazy('ingredients')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Ingredient deleted successfully!")
+        return super().delete(request, *args, **kwargs)
 
 # Delete a recipe
-@login_required
-def recipe_delete(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk)  # Get the specific recipe by ID
-    recipe.delete()
-    return redirect('dishes')
+class RecipeDeleteView(LoginRequiredMixin, DeleteView):
+    model = Recipe
+    success_url = reverse_lazy('dishes')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Recipe deleted successfully!")
+        return super().delete(request, *args, **kwargs)
 
 # Delete a dish type
-@login_required
-def dishtype_delete(request, pk):
-    dishtype = get_object_or_404(dishType, pk=pk)  # Get the specific dish type by ID
-    dishtype.delete()
-    return redirect('dishtype')
+class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
+    model = dishType
+    success_url = reverse_lazy('dishtype')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Dish type deleted successfully!")
+        return super().delete(request, *args, **kwargs)
