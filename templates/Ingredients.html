@@ -5,7 +5,7 @@
 {% block content %}
     <h2>Ingredients List</h2>
 
-    <!-- Поисковая форма -->
+    <!-- Search form -->
     <div class="search-container">
         <form method="GET">
             {{ search_form.as_p }}
@@ -13,7 +13,7 @@
         </form>
     </div>
 
-    <!-- Список ингредиентов -->
+    <!-- List of ingredients -->
     <div class="grid-container">
         {% for ingredient in ingredients %}
             <div class="grid-item">
@@ -22,7 +22,7 @@
                 <p>Unit: {{ ingredient.unit }}</p>
                 <p>Price: {{ ingredient.purchase_price }} USD</p>
 
-                <!-- Кнопка для удаления -->
+                <!-- Button to delete -->
                 <form action="{% url 'ingredient_delete' ingredient.pk %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this ingredient?');">Delete</button>

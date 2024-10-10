@@ -3,9 +3,9 @@
 {% block title %}Add New Ingredient{% endblock %}
 
 {% block content %}
-    <div class="form-container"> <!-- Добавляем контейнер для стилей -->
+    <div class="form-container">
         <h2>Add New Ingredient</h2>
-        <form method="POST" class="cook-form"> <!-- Применяем класс для формы -->
+        <form method="POST" class="cook-form">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn">Add Ingredient</button>

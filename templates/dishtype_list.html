@@ -5,7 +5,7 @@
 {% block content %}
     <h2>Dish Types</h2>
 
-    <!-- Пошукова форма -->
+    <!-- Search form -->
     <div class="search-container">
         <form method="GET">
             {{ search_form.as_p }}
@@ -13,13 +13,13 @@
         </form>
     </div>
 
-    <!-- Список типів страв -->
+    <!-- List of dish types -->
     <div class="grid-container">
         {% for dishtype in dishtypes %}
             <div class="grid-item">
                 <h3>{{ dishtype.name }}</h3>
 
-                <!-- Кнопка для удаления -->
+                <!-- Button to delete -->
                 <form action="{% url 'dishtype_delete' dishtype.pk %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this dish type?');">Delete</button>
@@ -30,7 +30,7 @@
         {% endfor %}
     </div>
 
-    <!-- Посилання на сторінку створення нового типу страв -->
+    <!-- Link to create a new dish type page -->
     <div class="create-button">
         <a href="{% url 'dishtype_create' %}" class="btn">Create New Dish Type</a>
     </div>

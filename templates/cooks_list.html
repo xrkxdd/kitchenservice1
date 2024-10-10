@@ -5,12 +5,12 @@
 {% block content %}
     <h2>Cooks List</h2>
 
-    <!-- Кнопка создания нового кухаря -->
+    <!-- Button to create a new cook -->
     <div class="create-button-container">
         <a href="{% url 'cooks_create' %}" class="btn btn-success">Add New Cook</a>
     </div>
 
-    <!-- Поисковая форма -->
+    <!-- Search form -->
     <div class="search-container">
         <form method="GET">
             {{ search_form.as_p }}
@@ -18,7 +18,7 @@
         </form>
     </div>
 
-    <!-- Список найденных кухарей -->
+    <!-- List of found cooks -->
     <div class="grid-container">
         {% for chef in chefs %}
             <div class="grid-item {% if chef.username == user.username %}highlight-row{% endif %}">
@@ -27,7 +27,7 @@
                 <p>Last name: {{ chef.last_name }}</p>
                 <p>Years of experience: {{ chef.years_of_experience|default:"None" }}</p>
 
-                <!-- Кнопка для удаления -->
+                <!-- Button to delete -->
                 <form action="{% url 'chef_delete' chef.pk %}" method="POST" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this cook?');">Delete</button>
@@ -36,6 +36,5 @@
         {% empty %}
             <p class="no-cooks">No cooks found.</p>
         {% endfor %}
-
     </div>
 {% endblock %}
