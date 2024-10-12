@@ -12,3 +12,15 @@ The platform features an intuitive UI powered by HTML, CSS, and Bootstrap, makin
 login: admin
 password: 12345
 
+## Installation
+
+Python must be already installed
+
+
+git clone https://github.com/xrkxdd/kitchenservice1.git
+cd kitchenservice1
+python -m venv venv
+source venv/scripts/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
