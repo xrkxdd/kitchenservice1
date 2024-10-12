@@ -5,3 +5,10 @@ Users can create, edit, and delete recipes with details like name, description, 
 It also supports chef management, ingredient tracking, and dish type organization, offering search and filtering capabilities.
 
 The platform features an intuitive UI powered by HTML, CSS, and Bootstrap, making it easy for culinary enthusiasts to organize their kitchen effectively.
+
+
+## Test user
+
+login: admin
+password: 12345
+
