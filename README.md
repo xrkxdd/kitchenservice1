@@ -7,11 +7,6 @@ It also supports chef management, ingredient tracking, and dish type organizatio
 The platform features an intuitive UI powered by HTML, CSS, and Bootstrap, making it easy for culinary enthusiasts to organize their kitchen effectively.
 
 
-## Test user
-
-login: admin
-password: 12345
-
 ## Installation
 
 Python must be already installed
@@ -23,4 +18,5 @@ python -m venv venv
 source venv/scripts/activate
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py createsuperuser
 python manage.py runserver
