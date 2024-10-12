@@ -20,3 +20,7 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+
+Before starting the project, you need to configure the environment file.
+
+Rename the env-example file to .env
