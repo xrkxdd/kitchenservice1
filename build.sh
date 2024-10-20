@@ -13,3 +13,5 @@ python manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 python manage.py migrate
+
+gunicorn kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
