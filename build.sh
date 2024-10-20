@@ -2,10 +2,14 @@
 # Exit on error
 set -o errexit
 
-# Print Python and Poetry versions
+# Print Python version
 echo "Using Python version:"
 python3 --version
 
+# Add Poetry to the PATH
+export PATH="/opt/render/project/poetry/bin:$PATH"
+
+# Print Poetry version
 echo "Using Poetry version:"
 poetry --version
 
