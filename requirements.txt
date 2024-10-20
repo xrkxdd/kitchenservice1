@@ -1,8 +1,12 @@
 asgiref==3.8.1
 bootstrap4==0.1.0
+click==8.1.7
+colorama==0.4.6
 css==0.1
 Django==5.1
 fonttools==4.53.1
+gunicorn==23.0.0
+h11==0.14.0
 insultgenerator==1.0.3
 kiwisolver==1.4.7
 loremipsum==1.0.5
@@ -18,5 +22,5 @@ python-dotenv==1.0.1
 six==1.16.0
 sqlparse==0.5.1
 tzdata==2024.1
-White-Noise==0.1.0
+uvicorn==0.32.0
 whitenoise==6.7.0
