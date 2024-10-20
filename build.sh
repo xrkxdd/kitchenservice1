@@ -4,36 +4,30 @@ set -o errexit
 
 # Print Python version
 echo "Using Python version:"
-python3 --version
+python3 --version || { echo "Python 3 is not installed or not found!"; exit 1; }
 
 # Add Poetry to the PATH
 export PATH="/opt/render/project/poetry/bin:$PATH"
 
 # Print Poetry version
 echo "Using Poetry version:"
-poetry --version
-
-# Check if Python is installed
-if ! command -v python3 &> /dev/null; then
-    echo "Python could not be found. Please ensure Python is installed."
-    exit 1
-fi
+/opt/render/project/poetry/bin/poetry --version || { echo "Poetry is not installed or not found!"; exit 1; }
 
 # Upgrade pip
 echo "Upgrading pip..."
-pip install --upgrade pip
+python3 -m pip install --upgrade pip
 
 # Install dependencies using Poetry
 echo "Installing dependencies..."
-poetry install
+/opt/render/project/poetry/bin/poetry install
 
 # Convert static asset files
 echo "Collecting static files..."
-poetry run python3 manage.py collectstatic --no-input
+/opt/render/project/poetry/bin/poetry run python3 manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 echo "Applying migrations..."
-poetry run python3 manage.py migrate
+/opt/render/project/poetry/bin/poetry run python3 manage.py migrate
 
 # Check if Gunicorn is installed
 if ! command -v gunicorn &> /dev/null; then
@@ -43,4 +37,4 @@ fi
 
 # Start Gunicorn server
 echo "Starting Gunicorn server..."
-poetry run gunicorn kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
+/opt/render/project/poetry/bin/poetry run gunicorn kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
