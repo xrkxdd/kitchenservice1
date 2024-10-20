@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kitchen App{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+                <div class="logo">
+            <a href="{% url 'kitchen:home' %}">
+                <h1>Kitchen <span>Service</span></h1>
+            </a>
+        </div>
+        <div class="user-info">
+        {% if user.is_authenticated %}
+            <p>User: {{ user.username }}</p>
+        {% endif %}
+    </div>
+    
+
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+                <form action="{% url 'kitchen:logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Kitchen Management. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+
