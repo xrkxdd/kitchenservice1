@@ -4,13 +4,13 @@ set -o errexit
 
 # Print Python and Poetry versions
 echo "Using Python version:"
-python --version
+python3 --version
 
 echo "Using Poetry version:"
 poetry --version
 
 # Check if Python is installed
-if ! command -v python &> /dev/null; then
+if ! command -v python3 &> /dev/null; then
     echo "Python could not be found. Please ensure Python is installed."
     exit 1
 fi
@@ -25,11 +25,11 @@ poetry install
 
 # Convert static asset files
 echo "Collecting static files..."
-poetry run python manage.py collectstatic --no-input
+poetry run python3 manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 echo "Applying migrations..."
-poetry run python manage.py migrate
+poetry run python3 manage.py migrate
 
 # Check if Gunicorn is installed
 if ! command -v gunicorn &> /dev/null; then
