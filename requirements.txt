@@ -33,6 +33,10 @@ pexpect==4.9.0
 pillow==10.4.0
 pkginfo==1.11.2
 platformdirs==4.3.6
+<<<<<<< HEAD
+=======
+poetry==1.8.4
+>>>>>>> d6764e5adc425d938e90d90edbc8619ddd5209cf
 poetry-core==1.9.1
 poetry-plugin-export==1.8.0
 psycopg2-binary==2.9.10
