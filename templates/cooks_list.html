@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Cooks List{% endblock %}
+
+{% block content %}
+    <h2>Cooks List</h2>
+
+    <!-- Button to create a new cook -->
+    <div class="create-button-container">
+        <a href="{% url 'kitchen:cooks_create' %}" class="btn btn-success">Add New Cook</a>
+    </div>
+
+    <!-- Search form -->
+    <div class="search-container">
+        <form method="GET">
+            {{ search_form.as_p }}
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- List of found cooks -->
+    <div class="grid-container">
+        {% for chef in chefs %}
+            <div class="grid-item {% if chef.username == user.username %}highlight-row{% endif %}">
+                <h3>{{ chef.username }}{% if chef.username == user.username %} (Me){% endif %}</h3>
+                <p>First name: {{ chef.first_name }}</p>
+                <p>Last name: {{ chef.last_name }}</p>
+                <p>Years of experience: {{ chef.years_of_experience|default:"None" }}</p>
+
+                <!-- Button to delete -->
+                <form action="{% url 'kitchen:chef_delete' chef.pk %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this cook?');">Delete</button>
+                </form>
+            </div>
+        {% empty %}
+            <p class="no-cooks">No cooks found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
