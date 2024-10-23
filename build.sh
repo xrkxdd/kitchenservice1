@@ -22,12 +22,19 @@ python3 manage.py collectstatic --no-input
 echo "Applying migrations..."
 python3 manage.py migrate
 
-# Check if Gunicorn is installed
+# Check if Gunicorn is installed and use full path if necessary
 if ! command -v gunicorn &> /dev/null; then
     echo "Gunicorn could not be found. Installing Gunicorn..."
     python3 -m pip install gunicorn
 fi
 
-# Start Gunicorn server
+# Find the path to Gunicorn in case it's not in PATH
+GUNICORN_PATH=$(command -v gunicorn)
+if [ -z "$GUNICORN_PATH" ]; then
+    echo "Gunicorn is still not found after installation!"
+    exit 1
+fi
+
+# Start Gunicorn server with full path
 echo "Starting Gunicorn server..."
-gunicorn kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
+$GUNICORN_PATH kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
