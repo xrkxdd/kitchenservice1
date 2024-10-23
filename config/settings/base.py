@@ -117,9 +117,6 @@ STATIC_ROOT = "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
 
 LOGIN_URL = 'kitchen:login'
 LOGIN_REDIRECT_URL = 'kitchen:home'
