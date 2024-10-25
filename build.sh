@@ -31,7 +31,3 @@ if ! command -v gunicorn &> /dev/null; then
     echo "Gunicorn could not be found. Installing Gunicorn..."
     python3 -m pip install gunicorn
 fi
-
-# Find the path to Gunicorn and start server
-echo "Starting Gunicorn server..."
-gunicorn kitchenservice.wsgi:application --bind 0.0.0.0:$PORT
