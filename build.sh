@@ -2,32 +2,10 @@
 # Exit on error
 set -o errexit
 
-# Print Python version
-echo "Using Python version:"
-python3 --version || { echo "Python 3 is not installed or not found!"; exit 1; }
+pip install -r requirements.txt
 
-# Upgrade pip
-echo "Upgrading pip..."
-python3 -m pip install --upgrade pip
+# Convert static asset files
+python manage.py collectstatic --no-input
 
-# Install dependencies using requirements.txt
-echo "Installing dependencies..."
-python3 -m pip install -r requirements.txt
-
-# Collect static files
-echo "Collecting static files..."
-python3 manage.py collectstatic --no-input
-
-# Apply migrations
-echo "Applying migrations..."
-python3 manage.py migrate
-
-# Activate virtual environment explicitly
-echo "Activating virtual environment..."
-source /opt/render/project/src/.venv/bin/activate
-
-# Check if Gunicorn is installed
-if ! command -v gunicorn &> /dev/null; then
-    echo "Gunicorn could not be found. Installing Gunicorn..."
-    python3 -m pip install gunicorn
-fi
+# Apply any outstanding database migrations
+python manage.py migrate
