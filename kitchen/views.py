@@ -23,7 +23,7 @@ class HomeView(TemplateView):
 
 # Login page
 class CustomLoginView(LoginView):
-    template_name = 'login.html'
+    template_name = 'registration/login.html'
     redirect_authenticated_user = True
 
 # View and add ingredients
