@@ -9,9 +9,8 @@ from .views import (
 app_name = 'kitchen'
 
 urlpatterns = [
-    path('', CustomLoginView.as_view(), name='login'),  # Login page
+    path('', CustomLoginView.as_view(), name='login'),  # Login page (home page as login page)
     path('home/', HomeView.as_view(), name='home'),  # Home page
-    path('login/', CustomLoginView.as_view(), name='login'),  # Login page (alternative URL)
     path('logout/', LogoutView.as_view(), name='logout'),  # URL for logging out
 
     # Dishes (recipes) related URLs
