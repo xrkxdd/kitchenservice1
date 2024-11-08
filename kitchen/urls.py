@@ -1,6 +1,5 @@
 from django.urls import path
 from django.contrib import admin
-from django.contrib.auth.views import LogoutView
 from django.urls import include
 from .views import (
     HomeView, IngredientListView, IngredientCreateView, RecipeCreateView,
@@ -12,11 +11,11 @@ from .views import (
 app_name = 'kitchen'
 
 urlpatterns = [
-    path('', CustomLoginView.as_view(), name='login'),  # Главная страница логина
-    path('home/', HomeView.as_view(), name='home'),  # Главная страница после логина
-    path('admin/', admin.site.urls),  # Админка
+    path('', CustomLoginView.as_view(), name='login'),
+    path('home/', HomeView.as_view(), name='home'),
+    path('admin/', admin.site.urls),
 
-    path('accounts/', include('django.contrib.auth.urls')),  # Все стандартные урлы для аутентификации
+    path('accounts/', include('django.contrib.auth.urls')),
 
 
     path('home/dishes/', RecipeListView.as_view(), name='dishes'),
