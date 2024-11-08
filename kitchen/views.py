@@ -24,12 +24,7 @@ class HomeView(TemplateView):
 # Login page
 class CustomLoginView(LoginView):
     template_name = 'registration/login.html'
-    redirect_authenticated_user = True  # Перенаправлення залогінених користувачів
-    next_page = reverse_lazy('kitchen:home')
-
-    def form_invalid(self, form):
-        messages.error(self.request, "Invalid username or password.")
-        return super().form_invalid(form)
+    redirect_authenticated_user = True
 
 # View and add ingredients
 class IngredientListView(CreateView, ListView):
