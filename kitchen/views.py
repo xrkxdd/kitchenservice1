@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 from django.views.generic import TemplateView, ListView, CreateView, DeleteView
@@ -185,3 +186,8 @@ class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Dish type deleted successfully!")
         return super().delete(request, *args, **kwargs)
+
+
+def hello(request):
+    return HttpResponse("Hello, World!")
+
