@@ -189,6 +189,9 @@ from django.shortcuts import render
 #         return super().delete(request, *args, **kwargs)
 
 
-def hello(request):
-    return render(request, 'hello.html')
+from django.http import HttpResponse
+
+def hello_view(request):
+    return HttpResponse("Hello, world!")
+
 

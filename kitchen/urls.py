@@ -1,23 +1,24 @@
 from django.urls import path
 from django.contrib import admin
 from django.urls import include
-from .views import (
-    HomeView, IngredientListView, IngredientCreateView, RecipeCreateView,
-    RecipeListView, ChefListView, ChefCreateView, DishTypeListView, DishTypeCreateView,
-    ChefDeleteView, IngredientDeleteView, RecipeDeleteView, DishTypeDeleteView,
-    CustomLoginView, hello
-)
+from . import views
+# from .views import (
+#     # HomeView, IngredientListView, IngredientCreateView, RecipeCreateView,
+#     # RecipeListView, ChefListView, ChefCreateView, DishTypeListView, DishTypeCreateView,
+#     # ChefDeleteView, IngredientDeleteView, RecipeDeleteView, DishTypeDeleteView,
+#     # CustomLoginView,
+# )
 
 app_name = 'kitchen'
 
 urlpatterns = [
     # path('', CustomLoginView.as_view(), name='login'),
     # path('home/', HomeView.as_view(), name='home'),
-    # path('admin/', admin.site.urls),
-    #
-    # path('accounts/', include('django.contrib.auth.urls')),
-    #
-    #
+    path('admin/', admin.site.urls),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+
+
     # path('home/dishes/', RecipeListView.as_view(), name='dishes'),
     # path('dishes/create/', RecipeCreateView.as_view(), name='dishes_create'),
     # path('home/dishes/delete/<int:pk>/', RecipeDeleteView.as_view(), name='recipe_delete'),
@@ -36,5 +37,8 @@ urlpatterns = [
     # path('home/dishtype_create/', DishTypeCreateView.as_view(), name='dishtype_create'),
     # path('home/dishtype/delete/<int:pk>/', DishTypeDeleteView.as_view(), name='dishtype_delete'),
 
-    path('hello', hello, name='hello'),
+    path('hello/', views.hello_view, name='hello'),
 ]
+
+
+
