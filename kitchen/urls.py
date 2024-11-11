@@ -8,15 +8,15 @@ from . import views
 #     # ChefDeleteView, IngredientDeleteView, RecipeDeleteView, DishTypeDeleteView,
 #     # CustomLoginView,
 # )
-
+from .views import(IngredientListView)
 app_name = 'kitchen'
 
 urlpatterns = [
     # path('', CustomLoginView.as_view(), name='login'),
     # path('home/', HomeView.as_view(), name='home'),
-    path('admin/', admin.site.urls),
-
-    path('accounts/', include('django.contrib.auth.urls')),
+    # path('admin/', admin.site.urls),
+    #
+    # path('accounts/', include('django.contrib.auth.urls')),
 
 
     # path('home/dishes/', RecipeListView.as_view(), name='dishes'),
@@ -26,13 +26,13 @@ urlpatterns = [
     # path('home/cooks/', ChefListView.as_view(), name='cooks'),
     # path('home/cooks_create/', ChefCreateView.as_view(), name='cooks_create'),
     # path('home/cooks/delete/<int:pk>/', ChefDeleteView.as_view(), name='chef_delete'),
-    #
-    #
-    # path('home/ingredients/', IngredientListView.as_view(), name='ingredients'),
+
+
+    path('home/ingredients/', IngredientListView.as_view(), name='ingredients'),
     # path('home/ingredients_create/', IngredientCreateView.as_view(), name='ingredient_create'),
     # path('home/ingredients/delete/<int:pk>/', IngredientDeleteView.as_view(), name='ingredient_delete'),
-    #
-    #
+
+
     # path('home/dishtype/', DishTypeListView.as_view(), name='dishtype'),
     # path('home/dishtype_create/', DishTypeCreateView.as_view(), name='dishtype_create'),
     # path('home/dishtype/delete/<int:pk>/', DishTypeDeleteView.as_view(), name='dishtype_delete'),

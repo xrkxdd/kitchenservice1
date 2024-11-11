@@ -1,17 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-# from django.urls import reverse_lazy
-# from django.contrib.auth.views import LoginView
-# from django.views.generic import TemplateView, ListView, CreateView, DeleteView
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib import messages
-# from .models import DishType, Ingredient, Recipe, Chef
-# from .forms import (
-#     DishTypeForm, DishTypeNameSearchForm, IngredientForm, RecipeForm, ChefCreationForm,
-#     IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
-# )
-#
-# # Home page view with statistics
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
+from django.views.generic import TemplateView, ListView, CreateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from .models import DishType, Ingredient, Recipe, Chef
+from .forms import (
+    DishTypeForm, DishTypeNameSearchForm, IngredientForm, RecipeForm, ChefCreationForm,
+    IngredientNameSearchForm, RecipeNameSearchForm, ChefUsernameSearchForm
+)
+
+# Home page view with statistics
 # class HomeView(TemplateView):
 #     template_name = 'home.html'
 #
@@ -27,33 +27,33 @@ from django.shortcuts import render
 # class CustomLoginView(LoginView):
 #     template_name = 'registration/login.html'
 #     redirect_authenticated_user = True
-#
-# # View and add ingredients
-# class IngredientListView(CreateView, ListView):
-#     model = Ingredient
-#     form_class = IngredientForm
-#     template_name = 'ingredients.html'
-#     context_object_name = 'ingredients'
-#
-#     def get_queryset(self):
-#         search_form = IngredientNameSearchForm(self.request.GET)
-#         if search_form.is_valid() and search_form.cleaned_data['name']:
-#             return Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
-#         return Ingredient.objects.all()
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['search_form'] = IngredientNameSearchForm(self.request.GET)
-#         return context
-#
-#     def form_valid(self, form):
-#         messages.success(self.request, "Ingredient added successfully!")
-#         return super().form_valid(form)
-#
-#     # Define where to redirect after a successful form submission
-#     success_url = reverse_lazy('kitchen:ingredients')
-#
-# # Create a new ingredient
+
+# View and add ingredients
+class IngredientListView(CreateView, ListView):
+    model = Ingredient
+    form_class = IngredientForm
+    template_name = 'ingredients.html'
+    context_object_name = 'ingredients'
+
+    def get_queryset(self):
+        search_form = IngredientNameSearchForm(self.request.GET)
+        if search_form.is_valid() and search_form.cleaned_data['name']:
+            return Ingredient.objects.filter(name__icontains=search_form.cleaned_data['name'])
+        return Ingredient.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = IngredientNameSearchForm(self.request.GET)
+        return context
+
+    def form_valid(self, form):
+        messages.success(self.request, "Ingredient added successfully!")
+        return super().form_valid(form)
+
+    # Define where to redirect after a successful form submission
+    success_url = reverse_lazy('kitchen:ingredients')
+
+# Create a new ingredient
 # class IngredientCreateView(CreateView):
 #     model = Ingredient
 #     form_class = IngredientForm
@@ -189,7 +189,6 @@ from django.shortcuts import render
 #         return super().delete(request, *args, **kwargs)
 
 
-from django.http import HttpResponse
 
 def hello_view(request):
     return HttpResponse("Hello, world!")
