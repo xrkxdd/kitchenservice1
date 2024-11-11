@@ -57,7 +57,7 @@ class IngredientListView(CreateView, ListView):
 class IngredientCreateView(CreateView):
     model = Ingredient
     form_class = IngredientForm
-    template_name = 'hello.html'
+    template_name = 'ingredients_create.html'
 
     def form_valid(self, form):
         messages.success(self.request, "Ingredient created successfully!")
