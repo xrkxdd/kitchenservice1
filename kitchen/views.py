@@ -189,7 +189,6 @@ class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
-from django.http import HttpResponse
 
 def hello_view(request):
     return HttpResponse("Hello, world!")
