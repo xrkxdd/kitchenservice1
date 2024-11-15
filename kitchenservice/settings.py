@@ -1,4 +1,4 @@
-# settings.py
+
 
 from pathlib import Path
 import os
@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Завантажуємо змінні середовища з .env
+
 load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -41,7 +41,7 @@ ROOT_URLCONF = 'kitchenservice.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Шлях до папки templates
+        'DIRS': [BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -56,7 +56,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kitchenservice.wsgi.application'
 
-# База даних
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -64,7 +64,7 @@ DATABASES = {
     }
 }
 
-# Валідація паролів
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -88,7 +88,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Статичні файли
+
 STATIC_URL = 'static/'
 STATIC_ROOT = "staticfiles"
 
@@ -98,7 +98,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Налаштування для логіну
+
 LOGIN_URL = 'kitchen:login'
 LOGIN_REDIRECT_URL = 'kitchen:home'
 LOGOUT_REDIRECT_URL = 'kitchen:login'
