@@ -187,10 +187,3 @@ class DishTypeDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Dish type deleted successfully!")
         return super().delete(request, *args, **kwargs)
-
-
-
-def hello_view(request):
-    return HttpResponse("Hello, world!")
-
-

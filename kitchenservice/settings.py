@@ -58,10 +58,17 @@ WSGI_APPLICATION = 'kitchenservice.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'service',
+    'USER': 'service_owner',
+    'PASSWORD': 'u4GHU2yDjmxS',
+    'HOST': 'ep-tight-shape-a2j14or6.eu-central-1.aws.neon.tech',
+    'PORT': os.getenv('POSTGRES_DB_PORT', 5432),
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
 }
 
 
