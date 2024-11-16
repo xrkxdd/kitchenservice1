@@ -37,8 +37,4 @@ urlpatterns = [
     path('home/dishtype_create/', DishTypeCreateView.as_view(), name='dishtype_create'),
     path('home/dishtype/delete/<int:pk>/', DishTypeDeleteView.as_view(), name='dishtype_delete'),
 
-    path('hello/', views.hello_view, name='hello'),
 ]
-
-
-
