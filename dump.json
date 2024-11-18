@@ -1,0 +1,59 @@
+[
+{
+    "model": "kitchen.dishtype",
+    "pk": 16,
+    "fields": {
+        "name": "awdaw"
+    }
+},
+{
+    "model": "kitchen.chef",
+    "pk": 24,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$fnL7T7sTZSkpL7Tcjn5Fqt$d456iMPWUmOb+y4q3uWBi0xk/uTDdq6rEJOVOBa48ww=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "da",
+        "first_name": "dwda",
+        "last_name": "awda",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-10T14:39:05.903Z",
+        "years_of_experience": 21,
+        "contract_size": 160,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "kitchen.chef",
+    "pk": 25,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$yeKWzQlxf1vlippQEsXvtX$QQo+7gaUs/FT8ciaj5cJRxcAtwru8cgp2U3J/FBmmFo=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "wadw",
+        "first_name": "13",
+        "last_name": "123",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-10T15:14:46.019Z",
+        "years_of_experience": 2,
+        "contract_size": 160,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "kitchen.ingredient",
+    "pk": 18,
+    "fields": {
+        "name": "awdawd",
+        "source": "awda",
+        "unit": "23",
+        "price": "233.00"
+    }
+}
+]
