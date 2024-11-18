@@ -24,3 +24,11 @@ python manage.py runserver
 Before starting the project, you need to configure the environment file.
 
 Rename the env-example file to .env
+
+
+## Test user
+login: xxxx
+password: 1
+
+## Deployed project
+https://kitchenservice1.onrender.com
